@@ -12,7 +12,10 @@ import {
   MatButtonModule,
   MatListModule,
   MatDividerModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSidenavModule,
+  MatTabsModule,
+  MatIconModule
 } from '@angular/material';
 
 @NgModule({
@@ -30,7 +33,10 @@ import {
     MatButtonModule,
     MatListModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
