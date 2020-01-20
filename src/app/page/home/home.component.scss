@@ -7,7 +7,10 @@
 .text_container{
     margin-top: 160px;
 }
-
+.text_container > h1{
+    font-weight: bold;
+    font-size: 150%;
+}
 p{
     font: smaller;
     width: 80%;
