@@ -1,35 +1,17 @@
 <mat-toolbar color="primary" class="header">
     <mat-toolbar-row>
         <div class="title">
-            <h1>ThanosContract</h1>
+            <a mat-button [routerLink]="'/'">
+                <h1>ThanosContract</h1>
+            </a>
         </div>
         <span class="menu-spacer"></span>
         <div>
-            <a mat-button [routerLink]="'/'"> Home </a>
-            <a mat-button [routerLink]="'/schema'"> Schema </a>
-            <a mat-button [routerLink]="'/about'"> About </a>
+            <a mat-button [routerLink]="'/schema'"> 接口 / Schema</a>
+            <a mat-button [routerLink]="'/contract'"> 契约 / Contract </a>
+            <a mat-button [routerLink]="'/mock'"> 挡板服务 / MockServer </a>
+            <a mat-button [routerLink]="'/about'"> 关于我们 / About Us </a>
         </div>
         <span class="menu-spacer"></span>
 
     </mat-toolbar-row>
-
-    <!--       
-        <mat-toolbar-row>
-            <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
-          </mat-toolbar-row> -->
-</mat-toolbar>
-<!-- <div class="header_container">
-    <div><span>ThanosContract</span></div>
-    <div>
-        <mat-toolbar-row>
-            <nav mat-tab-nav-bar>
-                <a *ngFor="let tab of tabs" mat-tab-link [routerLink]="tab.routerLink" routerLinkActive
-                    #RouterLinkActive="routerLinkActive" [active]="RouterLinkActive.isActive">
-                    {{tab.label}}
-                </a>
-            </nav>
-        </mat-toolbar-row>
-    </div>
-
-
-</div> -->
