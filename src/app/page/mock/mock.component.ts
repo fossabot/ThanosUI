@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MockMapping } from 'src/app/interface/MockMapping';
+import { MockMapping } from 'src/app/models/MockMapping';
+import { MockServerService } from 'src/app/service/mockserver.service';
 
 
 const ELEMENT_DATA: MockMapping[] = [
@@ -30,6 +31,15 @@ const ELEMENT_DATA: MockMapping[] = [
 export class MockComponent implements OnInit {
   displayedColumns: string[] = ['provider', 'consumer', 'port'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  mappings: MockMapping[];
+
+  constructor(mockServerService: MockServerService) {
+    mockServerService.getMapping().subscribe(response => {
+      this.mappings = response;
+      console.log(this.mappings);
+    });
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

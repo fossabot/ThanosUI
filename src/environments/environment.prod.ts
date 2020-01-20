@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  mockserver_url: 'http://localhost:4200/mockserver',
 };

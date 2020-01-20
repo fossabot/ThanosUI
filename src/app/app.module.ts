@@ -11,20 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContractComponent } from './page/contract/contract.component';
 import { MockComponent } from './page/mock/mock.component';
 import { AboutComponent } from './page/about/about.component';
-import {
-  MatButtonModule,
-  MatListModule,
-  MatDividerModule,
-  MatToolbarModule,
-  MatSidenavModule,
-  MatTabsModule,
-  MatIconModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatFormFieldModule,
-  MatInputModule
-} from '@angular/material';
-
+import { MaterialModule } from './models/MaterialModule';
+import { CoreModule } from './models/CoreModule';
 
 @NgModule({
   declarations: [
@@ -41,17 +29,8 @@ import {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatListModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatTabsModule,
-    MatIconModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule
+    MaterialModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
