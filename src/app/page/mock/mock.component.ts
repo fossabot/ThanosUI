@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MockMapping } from 'src/app/models/MockMapping';
 import { MockServerService } from 'src/app/service/mockserver.service';
+import { MockMappingDTO } from 'src/app/models/MockMappingDTO';
 
 
 const ELEMENT_DATA: MockMapping[] = [
@@ -36,7 +37,9 @@ export class MockComponent implements OnInit {
 
   constructor(mockServerService: MockServerService) {
     mockServerService.getMapping().subscribe(response => {
-      this.mappings = response;
+      this.mappings = response.map(res => new MockMappingDTO(res))
+        .filter(dto => dto.isValid())
+        .map(mapping => mapping.toMockMapping());
       console.log(this.mappings);
     });
   }

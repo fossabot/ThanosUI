@@ -3,7 +3,7 @@ module.exports = {
     roots: ['src'],
     setupFilesAfterEnv: ["<rootDir>/setup-jest.ts"],
     testPathIgnorePatterns:[
-        "<rootDir>/src/test.js"
+        "src/test.js"
     ],
     transformIgnorePatterns: [
         "node_modules/(?!(@ionic-native|@ionic|angularfire2)/)"
@@ -28,8 +28,8 @@ module.exports = {
             "diagnostics": false,
             "stringifyContentPathRegex": "\\.html$",
             "astTransformers": [
-                "jest-preset-angular/build/InlineFilesTransformer",
-                "jest-preset-angular/build/StripStylesTransformer"
+                "node_modules/jest-preset-angular/build/InlineFilesTransformer",
+                "node_modules/jest-preset-angular/build/StripStylesTransformer"
             ]
         }
     }
