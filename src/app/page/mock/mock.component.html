@@ -1,29 +1,48 @@
 <div class="header_height">
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keyword ...">
-    </mat-form-field>
+    <div class="left">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keyword ...">
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Provider Column -->
+            <ng-container matColumnDef="provider">
+                <th mat-header-cell *matHeaderCellDef> Provider / 生产者 </th>
+                <td mat-cell *matCellDef="let element"> {{element.provider}} </td>
+            </ng-container>
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="provider">
-            <th mat-header-cell *matHeaderCellDef> Provider / 生产者 </th>
-            <td mat-cell *matCellDef="let element"> {{element.provider}} </td>
-        </ng-container>
+            <!-- Consumer Column -->
+            <ng-container matColumnDef="consumer">
+                <th mat-header-cell *matHeaderCellDef> Consumer / 消费者 </th>
+                <td mat-cell *matCellDef="let element"> {{element.consumer}} </td>
+            </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="consumer">
-            <th mat-header-cell *matHeaderCellDef> Consumer / 消费者 </th>
-            <td mat-cell *matCellDef="let element"> {{element.consumer}} </td>
-        </ng-container>
+            <!-- Port Column -->
+            <ng-container matColumnDef="port">
+                <th mat-header-cell *matHeaderCellDef> 挡板端口 / TCP Port </th>
+                <td mat-cell *matCellDef="let element"> {{element.port}} </td>
+            </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="port">
-            <th mat-header-cell *matHeaderCellDef> 挡板端口 / TCP Port </th>
-            <td mat-cell *matCellDef="let element"> {{element.port}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[8, 16]" showFirstLastButtons></mat-paginator>
+    </div>
+    <div class="right">
+        <div class="example-container">
+            <div class="title"><h3 >TCP Play Ground</h3></div>
+            <mat-form-field>
+                <input matInput placeholder="Port">
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput rows="5" placeholder="Request Message"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" >Send !</button>
+            <mat-divider></mat-divider>
+            <mat-form-field>
+                <textarea matInput rows="5" placeholder="Response Message"></textarea>
+            </mat-form-field>
+        </div>
+        
+    </div>
 </div>
