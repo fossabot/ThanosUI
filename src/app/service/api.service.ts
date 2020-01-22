@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable ,  throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
   constructor(
     private http: HttpClient
-  ) {}
+  ) { }
 
   private formatErrors(error: any) {
-    return  throwError(error.error);
+    return throwError(error.error);
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -27,9 +27,11 @@ export class ApiService {
   }
 
   post(path: string, body: Object = {}): Observable<any> {
+    const options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
     return this.http.post(
       `${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      options
     ).pipe(catchError(this.formatErrors));
   }
 

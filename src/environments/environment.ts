@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   mockserver_url: 'http://localhost:4200/mockserver',
+  contractService_url: 'http://localhost:4200/contractservice'
 };
 
 /*

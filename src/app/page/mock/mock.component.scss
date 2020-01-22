@@ -34,6 +34,12 @@ table {
     width: 80%;
     margin: 0 auto;
   }
+  form > mat-form-field{
+      width: 100%;
+  }
+  form > button{
+      width: 100%;
+  }
   
   .example-container > * {
     width: 100%;

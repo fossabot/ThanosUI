@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../service/api.service';
 import { MockServerService } from '../service/mockserver.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ContractService } from '../service/contract.service';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     ApiService,
-    MockServerService
+    MockServerService,
+    ContractService
   ],
   declarations: []
 })

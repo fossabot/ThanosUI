@@ -13,6 +13,7 @@ import { MockComponent } from './page/mock/mock.component';
 import { AboutComponent } from './page/about/about.component';
 import { MaterialModule } from './models/MaterialModule';
 import { CoreModule } from './models/CoreModule';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CoreModule } from './models/CoreModule';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    CoreModule
+    CoreModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
