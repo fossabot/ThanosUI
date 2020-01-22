@@ -8,6 +8,7 @@ export class MockMappingDTO {
         Object.assign(this, obj);
     }
 
+
     isValid(): boolean {
         if ((this.index.indexOf('-') >= 0) &&
             (this.index.indexOf('-') < this.index.length)) {
