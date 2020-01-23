@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'mock',
-    component: MockComponent
+    loadChildren: () => import('./page/mock/mock.module').then(m => m.MockModule)
   },
   {
     path: 'about',

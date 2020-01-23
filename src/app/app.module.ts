@@ -5,26 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
-import { HomeComponent } from './page/home/home.component';
-import { SchemaComponent } from './page/schema/schema.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContractComponent } from './page/contract/contract.component';
-import { MockComponent } from './page/mock/mock.component';
-import { AboutComponent } from './page/about/about.component';
 import { MaterialModule } from './models/MaterialModule';
 import { CoreModule } from './models/CoreModule';
 import { FormsModule } from '@angular/forms';
+import { MockModule } from './page/mock/mock.module';
+import { HomeModule } from './page/home/home.module';
+import { ContractModule } from './page/contract/contract.module';
+import { AboutModule } from './page/about/about.module';
+import { SchemaModule } from './page/schema/schema.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    SchemaComponent,
-    ContractComponent,
-    MockComponent,
-    AboutComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +28,11 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     CoreModule,
-    FormsModule
+    MockModule,
+    HomeModule,
+    ContractModule,
+    AboutModule,
+    SchemaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
