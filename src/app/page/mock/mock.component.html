@@ -35,18 +35,18 @@
             </div>
             <form #tcpRequestForm="ngForm">
                 <mat-form-field>
-                    <input type="text" id="host" required matInput [(ngModel)]="model.host" name="host"
+                    <input type="text" id="host" required minlength="1" matInput [(ngModel)]="model.host" name="host"
                         placeholder="Host">
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput required id="port" [(ngModel)]="model.port" name="port" placeholder="Port">
                 </mat-form-field>
                 <mat-form-field>
-                    <textarea matInput required cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                    <textarea matInput required minlength="1" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                         cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" id="request" [(ngModel)]="model.requestMsg" name="request"
                         placeholder="Request Message"></textarea>
                 </mat-form-field>
-                <button mat-raised-button color="primary" (click)="onSubmit()">Send !</button>
+                <button mat-raised-button color="primary" [disabled]="!tcpRequestForm.form.valid" (click)="onSubmit()">Send !</button>
             </form>
             <mat-divider></mat-divider>
             <mat-form-field>
