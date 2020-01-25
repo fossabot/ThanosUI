@@ -12,13 +12,15 @@ import { MockModule } from './page/mock/mock.module';
 import { HomeModule } from './page/home/home.module';
 import { ContractModule } from './page/contract/contract.module';
 import { SchemaModule } from './page/schema/schema.module';
+import { SchemadialogComponent } from './component/schemadialog/schemadialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SchemadialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { SchemaModule } from './page/schema/schema.module';
     SchemaModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SchemadialogComponent]
 })
 export class AppModule { }
