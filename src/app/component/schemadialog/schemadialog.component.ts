@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Schema } from 'src/app/models/Schema';
 import { NgModel } from '@angular/forms';
 import { Mode } from 'src/app/models/Mode';
+import { SchemaField } from 'src/app/models/SchemaField';
 
 @Component({
   selector: 'app-schemadialog',
@@ -11,7 +12,7 @@ import { Mode } from 'src/app/models/Mode';
 })
 export class SchemadialogComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'type', 'length', 'content'];
+  displayedColumns: string[] = ['id', 'name', 'type', 'length', 'content', 'del'];
   schemaList: Schema[];
   isReadOnlyDesc = true;
   isReadOnlyFields = true;
@@ -24,6 +25,7 @@ export class SchemadialogComponent implements OnInit {
     }
     if (data.mode as Mode === Mode.ADD) {
       this.isReadOnlyDesc = false;
+      this.isReadOnlyFields = false;
     }
   }
 
@@ -35,5 +37,10 @@ export class SchemadialogComponent implements OnInit {
   }
   onSubmit() {
     console.log('onSubmit is called');
+  }
+  delete(element: SchemaField, index: number, fieldList: SchemaField[]) {
+    console.log('Going to remove entry ' + index);
+    console.log('Going to remove element ' + element.name);
+    fieldList.forEach(field => console.log(field));
   }
 }

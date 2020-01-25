@@ -31,7 +31,7 @@ table {
     width: 100%;
 }
 .length_f{
-    width: 50px;
+    width: 60px;
 }
 .type_f{
     width: 70px;
@@ -43,7 +43,8 @@ td.mat-cell{
 th.mat-header-cell{
     border-bottom-style: none;
 }
-.mat-form-field {
-    margin: 5px;
+.schema_desc > .mat-form-field {
+    margin: 8px;
 }
+
 
