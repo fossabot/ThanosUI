@@ -13,6 +13,7 @@ import { HomeModule } from './page/home/home.module';
 import { ContractModule } from './page/contract/contract.module';
 import { SchemaModule } from './page/schema/schema.module';
 import { SchemadialogComponent } from './component/schemadialog/schemadialog.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { SchemadialogComponent } from './component/schemadialog/schemadialog.com
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FormsModule,
     CoreModule,
     MockModule,
     HomeModule,

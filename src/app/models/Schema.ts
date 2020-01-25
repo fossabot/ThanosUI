@@ -1,12 +1,12 @@
-import { SchemaFieldDTO } from './SchemaFieldDTO';
+import { SchemaField } from './SchemaField';
 
-export class SchemaDTO {
+export class Schema {
     id: string;
     provider: string;
     name: string;
     version: string;
-    request: SchemaFieldDTO[];
-    response: SchemaFieldDTO[];
+    request: SchemaField[];
+    response: SchemaField[];
 
     constructor(obj?: any) {
         Object.assign(this, obj);

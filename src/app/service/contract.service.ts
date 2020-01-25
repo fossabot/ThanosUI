@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TcpResponseDTO } from '../models/TcpResponseDTO';
-import { SchemaDTO } from '../models/SchemaDTO';
+import { Schema } from '../models/Schema';
 
 @Injectable()
 export class ContractService {
@@ -17,7 +17,7 @@ export class ContractService {
             .pipe(map(res => res));
     }
 
-    getAllSchemas(): Observable<SchemaDTO[]> {
+    getAllSchemas(): Observable<Schema[]> {
         return this.apiService
             .get(environment.contractService_url + '/schemas')
             .pipe(map(res => res));
