@@ -5,6 +5,7 @@ import { ContractService } from 'src/app/service/contract.service';
 import { Schema } from 'src/app/models/Schema';
 import { MatDialog } from '@angular/material/dialog';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
+import { Mode } from 'src/app/models/Mode';
 
 @Component({
   selector: 'app-schema',
@@ -45,10 +46,11 @@ export class SchemaComponent implements OnInit {
   }
   viewSchema(content: Schema) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
-      width: '80%',
+      width: '85%',
       data: {
         title: '查看接口详情',
-        schema: content
+        schema: content,
+        mode: Mode.READ
       }
     });
 
@@ -60,10 +62,11 @@ export class SchemaComponent implements OnInit {
 
   addSchema() {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
-      width: '80%',
+      width: '85%',
       data: {
         title: '添加接口',
-        schema: new Schema()
+        schema: new Schema(),
+        mode: Mode.ADD
       }
     });
 
@@ -80,10 +83,11 @@ export class SchemaComponent implements OnInit {
 
   editSchema(content: Schema) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
-      width: '80%',
+      width: '85%',
       data: {
         title: '编辑接口详情',
-        schema: content
+        schema: content,
+        mode: Mode.EDIT
       }
     });
 
@@ -103,7 +107,7 @@ export class SchemaComponent implements OnInit {
     console.log('transformMsg - Not implement yet.');
   }
 
-  downloadYml(content: Schema){
+  downloadYml(content: Schema) {
     console.log('transformMsg - Not implement yet.');
   }
 

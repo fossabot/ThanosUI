@@ -1,13 +1,13 @@
 .schema_dialog {
     margin: 0 auto;
-    width: 95%;
+    width: 100%;
     text-align: center;
 }
 .schema_desc{
     text-align: center;
 }
 .schema_form > * {
-    width: 100%;
+    width: 95%;
     text-align: left;
     padding: 15px
 }
@@ -26,3 +26,24 @@ mat-divider {
 .bottom_btn>button{
     width: 50%;
 }
+
+table {
+    width: 100%;
+}
+.length_f{
+    width: 50px;
+}
+.type_f{
+    width: 70px;
+}
+  
+td.mat-cell{
+    border-bottom-style: none;
+}
+th.mat-header-cell{
+    border-bottom-style: none;
+}
+.mat-form-field {
+    margin: 5px;
+}
+
