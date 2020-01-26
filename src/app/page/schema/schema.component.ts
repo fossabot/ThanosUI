@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ContractService } from 'src/app/service/contract.service';
-import { Schema } from 'src/app/models/Schema';
+import { SchemaImpl } from 'src/app/models/SchemaImpl';
 import { MatDialog } from '@angular/material/dialog';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
 import { Mode } from 'src/app/models/Mode';
@@ -15,13 +15,15 @@ import { Mode } from 'src/app/models/Mode';
 export class SchemaComponent implements OnInit {
 
   displayedColumns: string[] = ['provider', 'name', 'version', 'actions'];
-  schemaList: Schema[];
+  schemaList: SchemaImpl[];
   dataSource = new MatTableDataSource(this.schemaList);
+  contractService: ContractService;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(contractService: ContractService, public dialog: MatDialog) {
     this.getDataSource(contractService);
+    this.contractService = contractService;
   }
 
   ngOnInit() {
@@ -30,13 +32,13 @@ export class SchemaComponent implements OnInit {
 
   getDataSource(contractService: ContractService) {
     contractService.getAllSchemas().subscribe(response => {
-      this.schemaList = response.map(res => new Schema(res))
+      this.schemaList = response.map(res => new SchemaImpl(res))
         .filter(schema => schema.isValid());
       this.refreshList(this.schemaList);
     });
   }
 
-  refreshList(schemaList: Schema[]) {
+  refreshList(schemaList: SchemaImpl[]) {
     this.dataSource.data = schemaList;
     console.log(this.dataSource.data);
   }
@@ -44,14 +46,18 @@ export class SchemaComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  viewSchema(content: Schema) {
+  viewSchema(content: SchemaImpl) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
       width: '85%',
       data: {
         title: '查看接口详情',
-        schema: content,
-        mode: Mode.READ
-      }
+        provider: content.provider,
+        name: content.name,
+        version: content.version,
+        mode: Mode.READ,
+        contractService: this.contractService
+      },
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -65,15 +71,19 @@ export class SchemaComponent implements OnInit {
       width: '85%',
       data: {
         title: '添加接口',
-        schema: new Schema(),
-        mode: Mode.ADD
-      }
+        provider: '',
+        name: '',
+        version: '',
+        mode: Mode.ADD,
+        contractService: this.contractService
+      },
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      const schema: Schema = new Schema(result);
+      const schema: SchemaImpl = new SchemaImpl(result);
       if (schema.isValid()) {
         this.schemaList.push(result);
         this.refreshList(this.schemaList);
@@ -81,20 +91,24 @@ export class SchemaComponent implements OnInit {
     });
   }
 
-  editSchema(content: Schema) {
+  editSchema(content: SchemaImpl) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
       width: '85%',
       data: {
         title: '编辑接口详情',
-        schema: content,
-        mode: Mode.EDIT
-      }
+        provider: content.provider,
+        name: content.name,
+        version: content.version,
+        mode: Mode.EDIT,
+        contractService: this.contractService
+      },
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      const temp: Schema = new Schema(result);
+      const temp: SchemaImpl = new SchemaImpl(result);
       if (temp.isValid()) {
         const index = this.schemaList.findIndex(x => x.id === temp.id);
         this.schemaList[index] = result;
@@ -107,7 +121,7 @@ export class SchemaComponent implements OnInit {
     console.log('transformMsg - Not implement yet.');
   }
 
-  downloadYml(content: Schema) {
+  downloadYml(content: SchemaImpl) {
     console.log('transformMsg - Not implement yet.');
   }
 

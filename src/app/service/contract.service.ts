@@ -22,4 +22,10 @@ export class ContractService {
             .get(environment.contractService_url + '/schemas')
             .pipe(map(res => res));
     }
+
+    getSchemaDetailByKey(provider: string, name: string, version: string): Observable<Schema> {
+        return this.apiService.get(environment.contractService_url +
+            '/schemas/index?name=' + name + '&provider=' + provider + '&version=' + version);
+    }
+
 }

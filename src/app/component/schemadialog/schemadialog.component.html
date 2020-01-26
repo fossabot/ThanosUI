@@ -6,17 +6,17 @@
             <div class="schema_desc">
                 <mat-form-field appearance="outline">
                     <mat-label>Provider</mat-label>
-                    <input type="text" id="provider" required minlength="1" matInput [(ngModel)]="data.schema.provider"
+                    <input type="text" id="provider" required minlength="1" matInput [(ngModel)]="data.provider"
                         [disabled]="isReadOnlyDesc" name="provider" placeholder="Provider">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Name</mat-label>
-                    <input type="text" id="name" required minlength="1" matInput [(ngModel)]="data.schema.name"
+                    <input type="text" id="name" required minlength="1" matInput [(ngModel)]="data.name"
                         name="name" [disabled]="isReadOnlyDesc" placeholder="Name">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Version</mat-label>
-                    <input type="text" id="version" required minlength="1" matInput [(ngModel)]="data.schema.version"
+                    <input type="text" id="version" required minlength="1" matInput [(ngModel)]="data.version"
                         [disabled]="isReadOnlyDesc" name="version" placeholder="Version">
                 </mat-form-field>
             </div>
@@ -179,6 +179,7 @@
                 </table>
             </div>
             <div class="bottom_btn" *ngIf="!isReadOnlyFields">
+                <button mat-raised-button (click)="onNoClick()" color="accent">退出 / Exit</button>
                 <button mat-raised-button color="primary" [mat-dialog-close]="data.schema"
                      (click)="onSubmit()"> 保存 / Save </button>
             </div>
