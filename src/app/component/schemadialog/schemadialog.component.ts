@@ -4,7 +4,7 @@ import { Mode } from 'src/app/models/schema/Mode';
 import { SchemaField } from 'src/app/models/schema/SchemaField';
 import { MatTableDataSource } from '@angular/material/table';
 import { SchemaDialogData } from 'src/app/models/schema/SchemaDialogData';
-import { SchemaImpl } from 'src/app/models/schema/SchemaImpl';
+import { SchemaDetailImpl } from 'src/app/models/schema/SchemaDetailImpl';
 
 @Component({
   selector: 'app-schemadialog',
@@ -24,7 +24,7 @@ export class SchemadialogComponent implements OnInit {
   resDataSource = new MatTableDataSource(this.responseList);
 
   incomingData: SchemaDialogData;
-  schema: SchemaImpl = new SchemaImpl();
+  schema: SchemaDetailImpl = new SchemaDetailImpl();
   emptyField: SchemaField = {
     name: '',
     type: '',
@@ -48,7 +48,7 @@ export class SchemadialogComponent implements OnInit {
 
   getSchemaDetail(data: SchemaDialogData) {
     data.contractService.getSchemaDetailByKey(data.provider, data.name, data.version).subscribe(response => {
-      const temp = new SchemaImpl(response);
+      const temp = new SchemaDetailImpl(response);
       if (temp.isValid()) {
         this.schema = temp;
       }

@@ -1,7 +1,7 @@
 import { SchemaField } from './SchemaField';
-import { Schema } from './Schema';
+import { SchemaDetail } from './SchemaDetail';
 
-export class SchemaImpl implements Schema {
+export class SchemaDetailImpl implements SchemaDetail {
     id: string;
     provider: string;
     name: string;

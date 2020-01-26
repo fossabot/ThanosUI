@@ -1,6 +1,6 @@
 import { SchemaField } from './SchemaField';
 
-export interface Schema {
+export interface SchemaDetail {
     provider: string;
     name: string;
     version: string;

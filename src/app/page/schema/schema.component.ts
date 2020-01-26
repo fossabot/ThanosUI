@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ContractService } from 'src/app/service/contract.service';
-import { SchemaImpl } from 'src/app/models/schema/SchemaImpl';
+import { SchemaDetailImpl } from 'src/app/models/schema/SchemaDetailImpl';
 import { MatDialog } from '@angular/material/dialog';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
 import { Mode } from 'src/app/models/schema/Mode';
@@ -15,7 +15,7 @@ import { Mode } from 'src/app/models/schema/Mode';
 export class SchemaComponent implements OnInit {
 
   displayedColumns: string[] = ['provider', 'name', 'version', 'actions'];
-  schemaList: SchemaImpl[];
+  schemaList: SchemaDetailImpl[];
   dataSource = new MatTableDataSource(this.schemaList);
   contractService: ContractService;
 
@@ -32,13 +32,13 @@ export class SchemaComponent implements OnInit {
 
   getDataSource(contractService: ContractService) {
     contractService.getAllSchemas().subscribe(response => {
-      this.schemaList = response.map(res => new SchemaImpl(res))
+      this.schemaList = response.map(res => new SchemaDetailImpl(res))
         .filter(schema => schema.isValid());
       this.refreshList(this.schemaList);
     });
   }
 
-  refreshList(schemaList: SchemaImpl[]) {
+  refreshList(schemaList: SchemaDetailImpl[]) {
     this.dataSource.data = schemaList;
     console.log(this.dataSource.data);
   }
@@ -46,7 +46,7 @@ export class SchemaComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  viewSchema(content: SchemaImpl) {
+  viewSchema(content: SchemaDetailImpl) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
       width: '85%',
       data: {
@@ -83,7 +83,7 @@ export class SchemaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      const schema: SchemaImpl = new SchemaImpl(result);
+      const schema: SchemaDetailImpl = new SchemaDetailImpl(result);
       if (schema.isValid()) {
         this.schemaList.push(result);
         this.refreshList(this.schemaList);
@@ -91,7 +91,7 @@ export class SchemaComponent implements OnInit {
     });
   }
 
-  editSchema(content: SchemaImpl) {
+  editSchema(content: SchemaDetailImpl) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
       width: '85%',
       data: {
@@ -108,7 +108,7 @@ export class SchemaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      const temp: SchemaImpl = new SchemaImpl(result);
+      const temp: SchemaDetailImpl = new SchemaDetailImpl(result);
       if (temp.isValid()) {
         const index = this.schemaList.findIndex(x => x.id === temp.id);
         this.schemaList[index] = result;
@@ -121,7 +121,7 @@ export class SchemaComponent implements OnInit {
     console.log('transformMsg - Not implement yet.');
   }
 
-  downloadYml(content: SchemaImpl) {
+  downloadYml(content: SchemaDetailImpl) {
     console.log('transformMsg - Not implement yet.');
   }
 

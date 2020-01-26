@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TcpResponseDTO } from '../models/mockmapping/TcpResponseDTO';
-import { Schema } from '../models/schema/Schema';
+import { SchemaDetail } from '../models/schema/SchemaDetail';
 
 @Injectable()
 export class ContractService {
@@ -17,13 +17,13 @@ export class ContractService {
             .pipe(map(res => res));
     }
 
-    getAllSchemas(): Observable<Schema[]> {
+    getAllSchemas(): Observable<SchemaDetail[]> {
         return this.apiService
             .get(environment.contractService_url + '/schemas')
             .pipe(map(res => res));
     }
 
-    getSchemaDetailByKey(provider: string, name: string, version: string): Observable<Schema> {
+    getSchemaDetailByKey(provider: string, name: string, version: string): Observable<SchemaDetail> {
         return this.apiService.get(environment.contractService_url +
             '/schemas/index?name=' + name + '&provider=' + provider + '&version=' + version);
     }
