@@ -18,6 +18,7 @@ export class SchemaComponent implements OnInit {
   schemaList: SchemaKeyImpl[];
   dataSource = new MatTableDataSource(this.schemaList);
   contractService: ContractService;
+  showSpinLoader = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -31,10 +32,12 @@ export class SchemaComponent implements OnInit {
   }
 
   getDataSource(contractService: ContractService) {
+    this.showSpinLoader = true;
     contractService.getAllSchemaKeys().subscribe(response => {
       this.schemaList = response.map(res => new SchemaKeyImpl(res))
         .filter(schema => schema.isValid());
       this.refreshList(this.schemaList);
+      this.showSpinLoader = false;
     });
   }
 

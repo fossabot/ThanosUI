@@ -5,7 +5,7 @@ import { SchemaRoutingModule } from './schema-routing.module';
 import { SchemaComponent } from './schema.component';
 import { MaterialModule } from 'src/app/models/MaterialModule';
 import { FormsModule } from '@angular/forms';
-import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadial
     CommonModule,
     SchemaRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    NgHttpLoaderModule.forRoot(),
   ]
 })
 export class SchemaModule { }

@@ -5,6 +5,9 @@
         <button mat-raised-button color="accent" class="header_btn" (click)="transformMsg()">
             <i class="material-icons">g_translate</i> 拆解消息助手</button>
     </div>
+    <div *ngIf="showSpinLoader">
+        <ng-http-loader></ng-http-loader>
+    </div>
     <div class="schema_table">
         <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keyword ...">

@@ -14,7 +14,7 @@ import { ContractModule } from './page/contract/contract.module';
 import { SchemaModule } from './page/schema/schema.module';
 import { SchemadialogComponent } from './component/schemadialog/schemadialog.component';
 import { FormsModule } from '@angular/forms';
-
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     MockModule,
     HomeModule,
     ContractModule,
-    SchemaModule
+    SchemaModule,
+    NgHttpLoaderModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
