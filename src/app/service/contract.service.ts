@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { TcpRequestDTO } from '../models/TcpRequestDTO';
+import { TcpRequestDTO } from '../models/mockmapping/TcpRequestDTO';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TcpResponseDTO } from '../models/TcpResponseDTO';
-import { Schema } from '../models/Schema';
+import { TcpResponseDTO } from '../models/mockmapping/TcpResponseDTO';
+import { Schema } from '../models/schema/Schema';
 
 @Injectable()
 export class ContractService {

@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MockServerService } from 'src/app/service/mockserver.service';
-import { MockMappingDTO } from 'src/app/models/MockMappingDTO';
+import { MockMappingDTO } from 'src/app/models/mockmapping/MockMappingDTO';
 import { MatPaginator } from '@angular/material/paginator';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
-import { TcpRequestDTO } from 'src/app/models/TcpRequestDTO';
+import { TcpRequestDTO } from 'src/app/models/mockmapping/TcpRequestDTO';
 import { ContractService } from 'src/app/service/contract.service';
 
 /**

@@ -1,6 +1,6 @@
 import { Mode } from './Mode';
 import { Schema } from './Schema';
-import { ContractService } from '../service/contract.service';
+import { ContractService } from '../../service/contract.service';
 
 export interface SchemaDialogData {
     mode: Mode;

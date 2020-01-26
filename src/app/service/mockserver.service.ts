@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { MockMappingDTO } from '../models/MockMappingDTO';
+import { MockMappingDTO } from '../models/mockmapping/MockMappingDTO';
 import { filter, map } from 'rxjs/operators';
 
 @Injectable()

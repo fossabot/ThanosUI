@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Mode } from 'src/app/models/Mode';
-import { SchemaField } from 'src/app/models/SchemaField';
+import { Mode } from 'src/app/models/schema/Mode';
+import { SchemaField } from 'src/app/models/schema/SchemaField';
 import { MatTableDataSource } from '@angular/material/table';
-import { SchemaDialogData } from 'src/app/models/SchemaDialogData';
-import { SchemaImpl } from 'src/app/models/SchemaImpl';
+import { SchemaDialogData } from 'src/app/models/schema/SchemaDialogData';
+import { SchemaImpl } from 'src/app/models/schema/SchemaImpl';
 
 @Component({
   selector: 'app-schemadialog',
@@ -98,7 +98,6 @@ export class SchemadialogComponent implements OnInit {
   }
 
   addField(index: number, fieldList: SchemaField[], dataSource: any) {
-
     console.log('going to add item behind ' + index);
     fieldList.splice(index + 1, 0, this.emptyField);
     dataSource.data = fieldList;

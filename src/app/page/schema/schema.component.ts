@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ContractService } from 'src/app/service/contract.service';
-import { SchemaImpl } from 'src/app/models/SchemaImpl';
+import { SchemaImpl } from 'src/app/models/schema/SchemaImpl';
 import { MatDialog } from '@angular/material/dialog';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
-import { Mode } from 'src/app/models/Mode';
+import { Mode } from 'src/app/models/schema/Mode';
 
 @Component({
   selector: 'app-schema',
