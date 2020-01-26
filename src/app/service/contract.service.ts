@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TcpResponseDTO } from '../models/mockmapping/TcpResponseDTO';
 import { SchemaDetail } from '../models/schema/SchemaDetail';
+import { SchemaKey } from '../models/schema/SchemaKey';
 
 @Injectable()
 export class ContractService {
@@ -17,10 +18,9 @@ export class ContractService {
             .pipe(map(res => res));
     }
 
-    getAllSchemas(): Observable<SchemaDetail[]> {
+    getAllSchemaKeys(): Observable<SchemaKey[]> {
         return this.apiService
-            .get(environment.contractService_url + '/schemas')
-            .pipe(map(res => res));
+            .get(environment.contractService_url + '/schemas/keys');
     }
 
     getSchemaDetailByKey(provider: string, name: string, version: string): Observable<SchemaDetail> {
