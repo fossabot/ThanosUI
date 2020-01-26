@@ -1,5 +1,6 @@
 <div class="schema_dialog">
     <h2 mat-dialog-title>{{data.title}}</h2>
+    <mat-divider></mat-divider>
     <div mat-dialog-content class="schema_form">
         <form #schemaDetailForm="ngForm">
             <div class="schema_desc">
@@ -19,14 +20,14 @@
                         [disabled]="isReadOnlyDesc" name="version" placeholder="Version">
                 </mat-form-field>
             </div>
-            <mat-divider></mat-divider>
+            
             <div class="field_tbl">
                 <div>
                     <mat-label>
                         <h4>请求接口（Request)</h4>
                     </mat-label>
                 </div>
-                <table mat-table [dataSource]="data.schema.request">
+                <table mat-table [dataSource]="this.reqDataSource">
                     <!-- Id Column -->
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -85,8 +86,11 @@
                     <ng-container matColumnDef="del">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element; let i=index">
-                            <button mat-icon-button *ngIf="!isReadOnlyFields" (click)="delete(element,i, data.schema.request)">
-                                <mat-icon>highlight_off</mat-icon>
+                            <button mat-icon-button *ngIf="!isReadOnlyFields" (click)="delete(i, this.requestList,this.reqDataSource)">
+                                <mat-icon color="accent">highlight_off</mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="!isReadOnlyFields" (click)="addField(i,this.requestList,this.reqDataSource)">
+                                <mat-icon color="primary">playlist_add</mat-icon>
                             </button>
                         </td>
                     </ng-container>
@@ -102,7 +106,7 @@
                         <h4>返回接口（Response)</h4>
                     </mat-label>
                 </div>
-                <table mat-table [dataSource]="data.schema.response">
+                <table mat-table [dataSource]="this.resDataSource">
                     <!-- Id Column -->
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -158,11 +162,14 @@
                     </ng-container>
 
                     <!-- Del Column -->
-                    <ng-container matColumnDef="del" >
-                        <th mat-header-cell *matHeaderCellDef ></th>
+                    <ng-container matColumnDef="del">
+                        <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element; let i=index">
-                            <button mat-icon-button *ngIf="!isReadOnlyFields" (click)="delete(element, i, data.schema.request)">
-                                <mat-icon>highlight_off</mat-icon>
+                            <button mat-icon-button *ngIf="!isReadOnlyFields" (click)="delete(i, this.responseList, this.resDataSource)">
+                                <mat-icon color="accent">highlight_off</mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="!isReadOnlyFields" (click)="addField(i,this.responseList,this.resDataSource)">
+                                <mat-icon color="primary">playlist_add</mat-icon>
                             </button>
                         </td>
                     </ng-container>
