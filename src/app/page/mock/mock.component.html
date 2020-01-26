@@ -1,5 +1,8 @@
 <div class="header_height">
     <div class="left">
+        <div *ngIf="showSpinLoader">
+            <ng-http-loader></ng-http-loader>
+        </div>
         <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keyword ...">
         </mat-form-field>

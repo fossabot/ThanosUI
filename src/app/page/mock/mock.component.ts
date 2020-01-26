@@ -23,6 +23,7 @@ export class MockComponent implements OnInit {
   model = new TcpRequestDTO('127.0.0.1', null, '');
   contractService: ContractService;
   response = '';
+  showSpinLoader = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
@@ -40,11 +41,13 @@ export class MockComponent implements OnInit {
   }
 
   getDataSource(mockServerService: MockServerService) {
+    this.showSpinLoader = true;
     mockServerService.getMapping().subscribe(response => {
       this.dataSource.data = response.map(res => new MockMappingDTO(res))
         .filter(dto => dto.isValid())
         .map(mapping => mapping.toMockMapping());
       console.log(this.dataSource.data);
+      this.showSpinLoader = false;
     });
   }
 
