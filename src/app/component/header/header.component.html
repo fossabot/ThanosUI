@@ -1,15 +1,15 @@
 <mat-toolbar color="primary" class="header">
     <mat-toolbar-row>
         <div class="title">
-            <a mat-button [routerLink]="'/'">
+            <a mat-button [routerLink]="'/home'">
                 <h1>ThanosContract</h1>
             </a>
         </div>
         <span class="menu-spacer"></span>
         <div>
-            <a mat-button [routerLink]="'/schema'"> 接口 / Schema</a>
-            <a mat-button [routerLink]="'/contract'"> 契约 / Contract </a>
-            <a mat-button [routerLink]="'/mock'"> 挡板服务 / MockServer </a>
+            <a mat-button [routerLink]="['/schema']"> 接口 / Schema</a>
+            <a mat-button [routerLink]="['/contract']"> 契约 / Contract </a>
+            <a mat-button [routerLink]="['/mock']"> 挡板服务 / MockServer </a>
             <!-- <a mat-button [routerLink]="'/about'"> 关于我们 / About Us </a> -->
         </div>
         <span class="menu-spacer"></span>
