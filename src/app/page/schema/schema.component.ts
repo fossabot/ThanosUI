@@ -49,6 +49,15 @@ export class SchemaComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  deleteSchema(content: SchemaKeyImpl) {
+    this.contractService.deleteSchema(content.id).subscribe(response => {
+      const index = this.schemaList.findIndex(schema => schema === content);
+      this.schemaList.splice(index, 1);
+      this.refreshList(this.schemaList);
+    }, error => {
+      console.log('Fail to remove schema');
+    });
+  }
   viewSchema(content: SchemaKeyImpl) {
     const dialogRef = this.dialog.open(SchemadialogComponent, {
       width: '85%',

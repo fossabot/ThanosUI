@@ -40,4 +40,10 @@ export class ContractService {
         return this.apiService.post(environment.contractService_url + '/schemas', schemaDetail);
     }
 
+    deleteSchema(id: string): Observable<any> {
+        console.log('going to delete ' + id);
+        return this.apiService.delete(environment.contractService_url +
+            '/schemas/id/' + id);
+    }
+
 }
