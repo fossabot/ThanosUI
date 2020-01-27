@@ -190,7 +190,7 @@
             </div>
             <div class="bottom_btn" *ngIf="!isReadOnlyFields">
                 <button mat-raised-button (click)="onNoClick()" color="accent">退出 / Exit</button>
-                <button mat-raised-button color="primary" [disabled]="!schemaDetailForm.form.valid" type="submit"
+                <button mat-raised-button color="primary" type="submit"
                      (click)="onSubmit()"> 保存 / Save </button>
             </div>
             
