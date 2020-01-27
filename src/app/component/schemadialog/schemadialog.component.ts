@@ -30,7 +30,6 @@ export class SchemadialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<SchemadialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: SchemaDialogData) {
-
     console.log('-- In constructor --');
     this.incomingData = Object.assign({}, data);
     console.log(this.incomingData);
@@ -107,7 +106,8 @@ export class SchemadialogComponent implements OnInit {
 
       this.incomingData.contractService.addSchemaDetail(this.schema).subscribe(response => {
         console.log('Successfully add schema');
-        this.dialogRef.close();
+        this.data.id = response.id;
+        this.dialogRef.close(this.data);
       },
         error => {
           this.alertMessage = 'Fail to add schema, please exit and retry later';
@@ -118,7 +118,7 @@ export class SchemadialogComponent implements OnInit {
       // this is for edit
       this.incomingData.contractService.updateSchemaDetail(this.schema).subscribe(response => {
         console.log('Successfully edit schema');
-        this.dialogRef.close();
+        this.dialogRef.close(this.data);
       },
         error => {
           this.alertMessage = 'Fail to update schema, please exit and retry later';
@@ -130,7 +130,7 @@ export class SchemadialogComponent implements OnInit {
 
   onNoClick(): void {
     console.log('onNoClick is called');
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
   }
 
   delete(index: number, fieldList: SchemaField[], dataSource: any) {

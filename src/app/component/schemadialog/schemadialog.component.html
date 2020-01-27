@@ -185,14 +185,15 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
             </div>
+            <div class="bottom_btn" *ngIf="isReadOnlyFields">
+                <button mat-raised-button (click)="onNoClick()" color="accent">退出 / Exit</button>
+            </div>
             <div class="bottom_btn" *ngIf="!isReadOnlyFields">
                 <button mat-raised-button (click)="onNoClick()" color="accent">退出 / Exit</button>
                 <button mat-raised-button color="primary" [disabled]="!schemaDetailForm.form.valid" type="submit"
                      (click)="onSubmit()"> 保存 / Save </button>
             </div>
-            <div class="bottom_btn" *ngIf="isReadOnlyFields">
-                <button mat-raised-button [mat-dialog-close]="schema" color="primary"> 关闭 / Close </button>
-            </div>
+            
         </form>
     </div>
 </div>
