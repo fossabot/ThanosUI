@@ -24,6 +24,7 @@ export class MockComponent implements OnInit {
   contractService: ContractService;
   response = '';
   showSpinLoader = false;
+  noRecord = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
@@ -48,7 +49,11 @@ export class MockComponent implements OnInit {
         .map(mapping => mapping.toMockMapping());
       console.log(this.dataSource.data);
       this.showSpinLoader = false;
-    });
+      this.noRecord = false;
+    }, err => {
+      console.log('HTTP error', err);
+    }
+    );
   }
 
   applyFilter(filterValue: string) {

@@ -1,6 +1,9 @@
 <div class="schema_dialog">
     <h2 mat-dialog-title>{{data.title}}</h2>
     <mat-divider></mat-divider>
+    <div>
+        <ng-http-loader></ng-http-loader>
+    </div>
     <div mat-dialog-content class="schema_form">
         <form #schemaDetailForm="ngForm">
             <div class="schema_desc">

@@ -3,33 +3,39 @@
         <div *ngIf="showSpinLoader">
             <ng-http-loader></ng-http-loader>
         </div>
-        <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keyword ...">
-        </mat-form-field>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <div *ngIf="noRecord" class="norecord">
+            <h1>No available MockServer yet</h1>
+            <p>Please try to add Schema and Contract first</p>
+        </div>
+        <div *ngIf="!noRecord">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keyword ...">
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <!-- Provider Column -->
-            <ng-container matColumnDef="provider">
-                <th mat-header-cell *matHeaderCellDef> Provider / 生产者 </th>
-                <td mat-cell *matCellDef="let element"> {{element.provider}} </td>
-            </ng-container>
+                <!-- Provider Column -->
+                <ng-container matColumnDef="provider">
+                    <th mat-header-cell *matHeaderCellDef> Provider / 生产者 </th>
+                    <td mat-cell *matCellDef="let element"> {{element.provider}} </td>
+                </ng-container>
 
-            <!-- Consumer Column -->
-            <ng-container matColumnDef="consumer">
-                <th mat-header-cell *matHeaderCellDef> Consumer / 消费者 </th>
-                <td mat-cell *matCellDef="let element"> {{element.consumer}} </td>
-            </ng-container>
+                <!-- Consumer Column -->
+                <ng-container matColumnDef="consumer">
+                    <th mat-header-cell *matHeaderCellDef> Consumer / 消费者 </th>
+                    <td mat-cell *matCellDef="let element"> {{element.consumer}} </td>
+                </ng-container>
 
-            <!-- Port Column -->
-            <ng-container matColumnDef="port">
-                <th mat-header-cell *matHeaderCellDef> 挡板端口 / TCP Port </th>
-                <td mat-cell *matCellDef="let element"> {{element.port}} </td>
-            </ng-container>
+                <!-- Port Column -->
+                <ng-container matColumnDef="port">
+                    <th mat-header-cell *matHeaderCellDef> 挡板端口 / TCP Port </th>
+                    <td mat-cell *matCellDef="let element"> {{element.port}} </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [pageSizeOptions]="[8, 16]" showFirstLastButtons></mat-paginator>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[8, 16]" showFirstLastButtons></mat-paginator>
+        </div>
     </div>
     <div class="right">
         <div class="example-container">
@@ -46,14 +52,16 @@
                 </mat-form-field>
                 <mat-form-field>
                     <textarea matInput required minlength="1" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" id="request" [(ngModel)]="model.requestMsg" name="request"
-                        placeholder="Request Message"></textarea>
+                        cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" id="request" [(ngModel)]="model.requestMsg"
+                        name="request" placeholder="Request Message"></textarea>
                 </mat-form-field>
-                <button mat-raised-button color="primary" [disabled]="!tcpRequestForm.form.valid" (click)="onSubmit()">Send !</button>
+                <button mat-raised-button color="primary" [disabled]="!tcpRequestForm.form.valid"
+                    (click)="onSubmit()">Send !</button>
             </form>
             <mat-divider></mat-divider>
             <mat-form-field>
-                <textarea matInput disabled id="response" rows="5" [(ngModel)]="response" name="response" placeholder="Response Message"></textarea>
+                <textarea matInput disabled id="response" rows="5" [(ngModel)]="response" name="response"
+                    placeholder="Response Message"></textarea>
             </mat-form-field>
         </div>
 

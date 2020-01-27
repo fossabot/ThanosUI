@@ -12,7 +12,6 @@ export class MockServerService {
     }
 
     getMapping(): Observable<MockMappingDTO[]> {
-        return this.apiService.get(environment.mockserver_url + '/apis/mappings')
-            .pipe(map(res => res));
+        return this.apiService.get(environment.mockserver_url + '/apis/mappings');
     }
 }

@@ -17,6 +17,7 @@ export class SchemadialogComponent implements OnInit {
 
   isReadOnlyDesc = true;
   isReadOnlyFields = true;
+  showSpinLoader = false;
 
   requestList: SchemaField[];
   responseList: SchemaField[];
@@ -41,19 +42,25 @@ export class SchemadialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showSpinLoader = true;
     console.log('init is called');
     this.getSchemaDetail(this.incomingData);
     this.initPage();
+    this.showSpinLoader = false;
   }
 
   getSchemaDetail(data: SchemaDialogData) {
-    data.contractService.getSchemaDetailByKey(data.provider, data.name, data.version).subscribe(response => {
-      const temp = new SchemaDetailImpl(response);
-      if (temp.isValid()) {
-        this.schema = temp;
-      }
+    if (this.incomingData.mode === Mode.ADD) {
       this.initFieldList();
-    });
+    } else {
+      data.contractService.getSchemaDetailByKey(data.provider, data.name, data.version).subscribe(response => {
+        const temp = new SchemaDetailImpl(response);
+        if (temp.isValid()) {
+          this.schema = temp;
+        }
+        this.initFieldList();
+      });
+    }
   }
 
   initPage() {
