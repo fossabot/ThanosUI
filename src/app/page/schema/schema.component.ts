@@ -54,6 +54,7 @@ export class SchemaComponent implements OnInit {
       width: '85%',
       data: {
         title: '查看接口详情',
+        id: content.id,
         provider: content.provider,
         name: content.name,
         version: content.version,
@@ -74,6 +75,7 @@ export class SchemaComponent implements OnInit {
       width: '85%',
       data: {
         title: '添加接口',
+        id: '',
         provider: '',
         name: '',
         version: '',
@@ -99,6 +101,7 @@ export class SchemaComponent implements OnInit {
       width: '85%',
       data: {
         title: '编辑接口详情',
+        id: content.id,
         provider: content.provider,
         name: content.name,
         version: content.version,

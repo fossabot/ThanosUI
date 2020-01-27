@@ -1,4 +1,5 @@
 export class SchemaKeyImpl {
+    id: string;
     provider: string;
     name: string;
     version: string;
@@ -12,6 +13,8 @@ export class SchemaKeyImpl {
         } else if (!this.name || 0 === this.name.length) {
             return false;
         } else if (!this.version || 0 === this.version.length) {
+            return false;
+        } else if (!this.id || 0 === this.id.length) {
             return false;
         } else {
             return true;

@@ -28,4 +28,8 @@ export class ContractService {
             '/schemas/index?name=' + name + '&provider=' + provider + '&version=' + version);
     }
 
+    getSchemaDetailById(id: string): Observable<SchemaDetail> {
+        return this.apiService.get(environment.contractService_url + '/schemas/id/' + id);
+    }
+
 }

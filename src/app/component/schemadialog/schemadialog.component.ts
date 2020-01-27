@@ -53,7 +53,7 @@ export class SchemadialogComponent implements OnInit {
     if (this.incomingData.mode === Mode.ADD) {
       this.initFieldList();
     } else {
-      data.contractService.getSchemaDetailByKey(data.provider, data.name, data.version).subscribe(response => {
+      data.contractService.getSchemaDetailById(data.id).subscribe(response => {
         const temp = new SchemaDetailImpl(response);
         if (temp.isValid()) {
           this.schema = temp;
