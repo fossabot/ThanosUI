@@ -20,7 +20,7 @@ export class ContractService {
 
     getAllSchemaKeys(): Observable<SchemaKey[]> {
         return this.apiService
-            .get(environment.contractService_url + '/schemas/keys');
+            .get(environment.contractService_url + '/schemas/keys/');
     }
 
     getSchemaDetailByKey(provider: string, name: string, version: string): Observable<SchemaDetail> {
