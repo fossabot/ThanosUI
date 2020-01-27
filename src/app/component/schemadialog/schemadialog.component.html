@@ -57,7 +57,7 @@
                         <th mat-header-cell *matHeaderCellDef> Type</th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field class="type_f" floatLabel="never">
-                                <mat-select [(value)]="element.type" placeholder="CHAR" [disabled]="isReadOnlyFields">
+                                <mat-select [(value)]="element.type" placeholder="CHAR" [disabled]="isReadOnlyFields" required>
                                     <mat-option value="CHAR">CHAR</mat-option>
                                     <mat-option value="NUM">NUM</mat-option>
                                 </mat-select>
@@ -82,7 +82,7 @@
                         <th mat-header-cell *matHeaderCellDef> Content </th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field>
-                                <input type="text" required minlength="1" maxlength="12" matInput
+                                <input type="text" required minlength="1" maxlength="20" matInput
                                     [(ngModel)]="element.content" [disabled]="isReadOnlyFields"
                                     [ngModelOptions]="{standalone: true}">
                             </mat-form-field>
@@ -136,7 +136,7 @@
                         <th mat-header-cell *matHeaderCellDef> Type</th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field class="type_f" floatLabel="never">
-                                <mat-select [(value)]="element.type" placeholder="CHAR" [disabled]="isReadOnlyFields">
+                                <mat-select [(value)]="element.type" placeholder="CHAR" [disabled]="isReadOnlyFields" required>
                                     <mat-option value="CHAR">CHAR</mat-option>
                                     <mat-option value="NUM">NUM</mat-option>
                                 </mat-select>
@@ -161,7 +161,7 @@
                         <th mat-header-cell *matHeaderCellDef> Content </th>
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field>
-                                <input type="text" required minlength="1" maxlength="12" matInput
+                                <input type="text" required minlength="1" maxlength="20" matInput
                                     [(ngModel)]="element.content" [disabled]="isReadOnlyFields"
                                     [ngModelOptions]="{standalone: true}">
                             </mat-form-field>
@@ -187,7 +187,7 @@
             </div>
             <div class="bottom_btn" *ngIf="!isReadOnlyFields">
                 <button mat-raised-button (click)="onNoClick()" color="accent">退出 / Exit</button>
-                <button mat-raised-button color="primary"
+                <button mat-raised-button color="primary" [disabled]="!schemaDetailForm.form.valid" type="submit"
                      (click)="onSubmit()"> 保存 / Save </button>
             </div>
             <div class="bottom_btn" *ngIf="isReadOnlyFields">

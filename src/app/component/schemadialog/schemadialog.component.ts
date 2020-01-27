@@ -27,12 +27,6 @@ export class SchemadialogComponent implements OnInit {
 
   incomingData: SchemaDialogData;
   schema: SchemaDetailImpl = new SchemaDetailImpl();
-  emptyField: SchemaField = {
-    name: '',
-    type: '',
-    content: '',
-    length: 0
-  };
 
   constructor(public dialogRef: MatDialogRef<SchemadialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: SchemaDialogData) {
@@ -76,14 +70,24 @@ export class SchemadialogComponent implements OnInit {
 
   private initFieldList() {
     if (!this.schema.request) {
-      this.requestList = [this.emptyField];
+      this.requestList = [{
+        name: '',
+        type: '',
+        content: '',
+        length: 0
+      }];
     } else {
       this.requestList = this.schema.request;
     }
     this.reqDataSource.data = this.requestList;
 
     if (!this.schema.response) {
-      this.responseList = [this.emptyField];
+      this.responseList = [{
+        name: '',
+        type: '',
+        content: '',
+        length: 0
+      }];
     } else {
       this.responseList = this.schema.response;
     }
@@ -92,11 +96,28 @@ export class SchemadialogComponent implements OnInit {
 
   onSubmit() {
     console.log('onSubmit is called');
-    if (this.schema.id === '') {
-      // this is for add
+    if (!this.schema.id) {
+      // this is for ADD
+      this.schema.provider = this.data.provider;
+      this.schema.name = this.data.name;
+      this.schema.version = this.data.version;
+      this.schema.request = this.requestList;
+      this.schema.response = this.responseList;
+      console.log(this.schema);
+
+      this.incomingData.contractService.addSchemaDetail(this.schema).subscribe(response => {
+        console.log('Successfully add schema');
+        this.dialogRef.close();
+      },
+        error => {
+          this.alertMessage = 'Fail to add schema, please exit and retry later';
+          this.alertDetail = error.error;
+          console.log(this.alertMessage);
+        });
     } else {
+      // this is for edit
       this.incomingData.contractService.updateSchemaDetail(this.schema).subscribe(response => {
-        console.log('Successfully update the schema');
+        console.log('Successfully edit schema');
         this.dialogRef.close();
       },
         error => {
@@ -120,7 +141,12 @@ export class SchemadialogComponent implements OnInit {
 
   addField(index: number, fieldList: SchemaField[], dataSource: any) {
     console.log('going to add item behind ' + index);
-    fieldList.splice(index + 1, 0, this.emptyField);
+    fieldList.splice(index + 1, 0, {
+      name: '',
+      type: '',
+      content: '',
+      length: 0
+    });
     dataSource.data = fieldList;
   }
 
