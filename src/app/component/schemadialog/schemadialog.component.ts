@@ -14,7 +14,8 @@ import { SchemaDetailImpl } from 'src/app/models/schema/SchemaDetailImpl';
 export class SchemadialogComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'content', 'del'];
-
+  alertMessage = '';
+  alertDetail = '';
   isReadOnlyDesc = true;
   isReadOnlyFields = true;
   showSpinLoader = false;
@@ -91,6 +92,19 @@ export class SchemadialogComponent implements OnInit {
 
   onSubmit() {
     console.log('onSubmit is called');
+    if (this.schema.id === '') {
+      // this is for add
+    } else {
+      this.incomingData.contractService.updateSchemaDetail(this.schema).subscribe(response => {
+        console.log('Successfully update the schema');
+        this.dialogRef.close();
+      },
+        error => {
+          this.alertMessage = 'Fail to update schema, please exit and retry later';
+          this.alertDetail = error.error;
+          console.log(this.alertMessage);
+        });
+    }
   }
 
   onNoClick(): void {

@@ -4,6 +4,10 @@
     <div>
         <ng-http-loader></ng-http-loader>
     </div>
+    <div *ngIf="alertMessage.length != 0" class='alert'>
+        <h4>{{alertMessage}}</h4>
+        <p>[{{alertDetail}}]</p>
+    </div>
     <div mat-dialog-content class="schema_form">
         <form #schemaDetailForm="ngForm">
             <div class="schema_desc">
@@ -183,11 +187,11 @@
             </div>
             <div class="bottom_btn" *ngIf="!isReadOnlyFields">
                 <button mat-raised-button (click)="onNoClick()" color="accent">退出 / Exit</button>
-                <button mat-raised-button color="primary" [mat-dialog-close]="data.schema"
+                <button mat-raised-button color="primary"
                      (click)="onSubmit()"> 保存 / Save </button>
             </div>
             <div class="bottom_btn" *ngIf="isReadOnlyFields">
-                <button mat-raised-button [mat-dialog-close]="data.schema" color="primary"> 关闭 / Close </button>
+                <button mat-raised-button [mat-dialog-close]="schema" color="primary"> 关闭 / Close </button>
             </div>
         </form>
     </div>

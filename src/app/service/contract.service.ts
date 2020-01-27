@@ -32,4 +32,8 @@ export class ContractService {
         return this.apiService.get(environment.contractService_url + '/schemas/id/' + id);
     }
 
+    updateSchemaDetail(schemaDetail: SchemaDetail): Observable<SchemaDetail> {
+        return this.apiService.put(environment.contractService_url + '/schemas', schemaDetail);
+    }
+
 }
