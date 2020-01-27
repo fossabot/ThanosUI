@@ -2,6 +2,7 @@
     margin: 0 auto;
     width: 100%;
     text-align: center;
+    padding: 0px;
 }
 .schema_desc{
     text-align: center;
@@ -9,7 +10,7 @@
 .schema_form > * {
     width: 95%;
     text-align: left;
-    padding: 15px
+    padding: 10px
 }
 .field_tbl > *{
     width: 100%;
@@ -22,6 +23,7 @@ mat-divider {
     width: 100%;
     text-align: center;
     margin: 30px auto;
+    margin-bottom: 10px;
 }
 .bottom_btn>button{
     width: 40%;
