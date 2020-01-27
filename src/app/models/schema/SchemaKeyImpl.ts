@@ -22,9 +22,7 @@ export class SchemaKeyImpl {
     }
 
     isEqual(key: SchemaKeyImpl): boolean {
-        if ((this.name === key.name) &&
-            (this.provider === key.provider) &&
-            (this.version === key.version)) {
+        if (this.id === key.id) {
             return true;
         } else {
             return false;

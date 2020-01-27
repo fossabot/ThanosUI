@@ -86,7 +86,7 @@ export class SchemaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed from add');
       console.log(result);
       const schema: SchemaKeyImpl = new SchemaKeyImpl(result);
       if (schema.isValid()) {
@@ -112,14 +112,8 @@ export class SchemaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed for edit');
       console.log(result);
-      const temp: SchemaKeyImpl = new SchemaKeyImpl(result);
-      if (temp.isValid()) {
-        const index = this.schemaList.findIndex(x => x.isEqual(temp));
-        this.schemaList[index] = result;
-        this.refreshList(this.schemaList);
-      }
     });
   }
 
