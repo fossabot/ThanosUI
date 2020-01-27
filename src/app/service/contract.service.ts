@@ -33,6 +33,7 @@ export class ContractService {
     }
 
     updateSchemaDetail(schemaDetail: SchemaDetail): Observable<SchemaDetail> {
+        console.log(schemaDetail);
         return this.apiService.put(environment.contractService_url + '/schemas', schemaDetail);
     }
 

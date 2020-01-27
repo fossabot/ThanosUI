@@ -20,9 +20,11 @@ export class ApiService {
   }
 
   put(path: string, body: Object = {}): Observable<any> {
+    const options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
     return this.http.put(
       `${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      options
     ).pipe(catchError(this.formatErrors));
   }
 

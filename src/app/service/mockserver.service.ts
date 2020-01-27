@@ -3,12 +3,10 @@ import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { MockMappingDTO } from '../models/mockmapping/MockMappingDTO';
-import { filter, map } from 'rxjs/operators';
 
 @Injectable()
 export class MockServerService {
     constructor(private apiService: ApiService) {
-
     }
 
     getMapping(): Observable<MockMappingDTO[]> {
