@@ -19,6 +19,10 @@ export class ContractDetailComponent implements OnInit {
   isReadOnlyDesc = false;
   isReadOnlyFields = false;
 
+  schemaProvider: string;
+  schemaName: string;
+  schemaVersion: string;
+
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'schemaContent', 'contractContent'];
 
   constructor(private route: ActivatedRoute, public contractService: ContractService) {
@@ -27,10 +31,14 @@ export class ContractDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const schemaId = params.get('schemaId');
+      const schemaId = params.get('id');
+      this.schemaProvider = params.get('provider');
+      this.schemaName = params.get('name');
+      this.schemaVersion = params.get('version');
       this.contractService.getSchemaDetailById(schemaId).subscribe(response => {
         this.contractDetail = new SchemaDetailImpl(response).toContractDetailImpl();
         this.contractDetail.schemaId = schemaId;
+        this.contractDetail.provider = this.schemaProvider;
       });
     });
     console.log(this.contractDetail);
