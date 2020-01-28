@@ -15,6 +15,7 @@ import { ContractModule } from '../contract/contract.module';
 import { SchemaModule } from '../schema/schema.module';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
+import { DetailHeaderComponent } from 'src/app/component/detail-header/detail-header.component';
 
 
 @NgModule({

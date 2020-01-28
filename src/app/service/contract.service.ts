@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { TcpResponseDTO } from '../models/mockmapping/TcpResponseDTO';
 import { SchemaDetail } from '../models/schema/SchemaDetail';
 import { SchemaKey } from '../models/schema/SchemaKey';
+import { ContractDetailImpl } from '../models/contract/ContractDetailImpl';
 
 @Injectable()
 export class ContractService {
@@ -14,8 +15,7 @@ export class ContractService {
 
     postTcpRequest(tcpRequest: TcpRequestDTO): Observable<TcpResponseDTO> {
         return this.apiService
-            .post(environment.contractService_url + '/utils/tcp', tcpRequest)
-            .pipe(map(res => res));
+            .post(environment.contractService_url + '/utils/tcp', tcpRequest);
     }
 
     getAllSchemaKeys(): Observable<SchemaKey[]> {
@@ -46,4 +46,8 @@ export class ContractService {
             '/schemas/id/' + id);
     }
 
+    addContract(contractDetailImpl: ContractDetailImpl): Observable<any> {
+        return this.apiService.post(environment.contractService_url +
+            '/contracts', contractDetailImpl);
+    }
 }

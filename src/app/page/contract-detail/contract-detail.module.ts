@@ -6,10 +6,14 @@ import { ContractDetailComponent } from './contract-detail.component';
 import { MaterialModule } from 'src/app/models/MaterialModule';
 import { FormsModule } from '@angular/forms';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { DetailHeaderComponent } from 'src/app/component/detail-header/detail-header.component';
 
 
 @NgModule({
-  declarations: [ContractDetailComponent],
+  declarations: [
+    ContractDetailComponent,
+    DetailHeaderComponent
+  ],
   imports: [
     CommonModule,
     ContractDetailRoutingModule,

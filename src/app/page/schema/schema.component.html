@@ -45,6 +45,8 @@
                     <button mat-icon-button color="accent" aria-label="Delete Schema" (click)="deleteSchema(element)">
                         <mat-icon>delete</mat-icon>
                     </button>
+                    <a mat-button color="accent" class="border_btn" [routerLink]="['/detail/contract', element.id]">
+                            <i class="material-icons">add</i>添加契约</a>
                     <button mat-button color="accent" class="border_btn" (click)="downloadYml(element)">
                         <i class="material-icons">import_export</i>转YAML</button>
                 </td>

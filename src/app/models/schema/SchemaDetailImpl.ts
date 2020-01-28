@@ -1,5 +1,7 @@
 import { SchemaField } from './SchemaField';
 import { SchemaDetail } from './SchemaDetail';
+import { ContractDetailImpl } from '../contract/ContractDetailImpl';
+import { ContractFieldImpl } from '../contract/ContractFieldImpl';
 
 export class SchemaDetailImpl implements SchemaDetail {
     id: string;
@@ -23,5 +25,15 @@ export class SchemaDetailImpl implements SchemaDetail {
         } else {
             return true;
         }
+    }
+
+    toContractDetailImpl(): ContractDetailImpl {
+        const contractRequest = this.request
+            .map(schemaRequest => new ContractFieldImpl(schemaRequest));
+
+        const contractResponse = this.response
+            .map(schemaResponse => new ContractFieldImpl(schemaResponse));
+
+        return new ContractDetailImpl(contractRequest, contractResponse);
     }
 }
