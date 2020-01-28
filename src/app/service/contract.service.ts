@@ -50,4 +50,18 @@ export class ContractService {
         return this.apiService.post(environment.contractService_url +
             '/contracts', contractDetailImpl);
     }
+
+    getAllContracts(): Observable<ContractDetailImpl[]> {
+        return this.apiService.get(environment.contractService_url + '/contracts');
+    }
+
+    getContractsBySchemaId(schemaId: string): Observable<ContractDetailImpl[]> {
+        return this.apiService.get(environment.contractService_url +
+            '/contracts/schemaId/' + schemaId);
+    }
+
+    getContractById(id: string): Observable<ContractDetailImpl> {
+        return this.apiService.get(environment.contractService_url +
+            '/contracts/id/' + id);
+    }
 }

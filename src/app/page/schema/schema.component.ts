@@ -14,7 +14,7 @@ import { Mode } from 'src/app/models/schema/Mode';
 })
 export class SchemaComponent implements OnInit {
 
-  displayedColumns: string[] = ['provider', 'name', 'version', 'actions'];
+  displayedColumns: string[] = ['provider', 'name', 'version', 'actions', 'contract_action'];
   schemaList: SchemaKeyImpl[];
   dataSource = new MatTableDataSource(this.schemaList);
   contractService: ContractService;
@@ -130,8 +130,8 @@ export class SchemaComponent implements OnInit {
     console.log('transformMsg - Not implement yet.');
   }
 
-  downloadYml(content: SchemaKeyImpl) {
-    console.log('transformMsg - Not implement yet.');
+  duplicateSchema(content: SchemaKeyImpl) {
+    console.log('duplicateSchema - Not implement yet.');
   }
 
 }
