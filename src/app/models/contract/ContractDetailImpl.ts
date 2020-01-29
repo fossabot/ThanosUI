@@ -6,10 +6,18 @@ export class ContractDetailImpl {
     name: string;
     version: string;
     schemaId: string;
+    schemaProvider: string;
+    schemaName: string;
+    schemaVersion: string;
     request: ContractFieldImpl[];
     response: ContractFieldImpl[];
 
-    constructor(req: ContractFieldImpl[], res: ContractFieldImpl[]) {
+    constructor(schemaId: string, schemaProvider: string, schemaName: string, schemaVersion: string,
+                req: ContractFieldImpl[], res: ContractFieldImpl[]) {
+        this.schemaId = schemaId;
+        this.schemaProvider = schemaProvider;
+        this.schemaName = schemaName;
+        this.schemaVersion = schemaVersion;
         this.request = req;
         this.response = res;
     }

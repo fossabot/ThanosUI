@@ -10,3 +10,17 @@
     text-align: left;
     padding: 20px;
 }
+.menu {
+    background-color: transparent;
+    color: white;
+    font-size: 70%;
+}
+.mat-button-toggle-group, .mat-button-toggle{
+    border: none;
+}
+
+.mat-button-toggle-checked {
+    // border: 1px solid #c5c0c7;
+    border-bottom: 1px solid white;
+    // background-color: #e1dde5; 
+ }

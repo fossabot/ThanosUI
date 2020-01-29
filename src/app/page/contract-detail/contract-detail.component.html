@@ -1,10 +1,13 @@
 <app-detail-header [subTitle]="subTitle"></app-detail-header>
-<div class="contract_form">
-    
+<div *ngIf='deny' class="top_msg">
+    <h3>Please search schema first and add contract there!</h3>
+    <a [routerLink]="['/schema']">Link to Schema Page</a>
+</div>
+<div class="contract_form" *ngIf='!deny'> 
     <form #contractDetailForm="ngForm">
         <div>
             <mat-label>
-                <h4>契约概述 (基于接口：{{schemaProvider}}-{{schemaName}}-{{schemaVersion}})</h4>
+                <h4>契约概述 (基于接口：{{contractDetail.schemaProvider}}-{{contractDetail.schemaName}}-{{contractDetail.schemaVersion}})</h4>
             </mat-label>
         </div>
         <div class="contract_desc_row">

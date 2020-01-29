@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'detail',
     component: DetailLayoutComponent,
     children: [
-      { path: 'contract/:id/:provider/:name/:version', loadChildren: () => ContractDetailModule },
+      { path: 'contract', loadChildren: () => ContractDetailModule },
     ]
   },
 ];

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from 'src/app/service/contract.service';
 import { SchemaDetailImpl } from 'src/app/models/schema/SchemaDetailImpl';
 import { ContractDetailImpl } from 'src/app/models/contract/ContractDetailImpl';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { Mode } from 'src/app/models/Mode';
+import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
 
 @Component({
   selector: 'app-contract-detail',
@@ -18,30 +20,45 @@ export class ContractDetailComponent implements OnInit {
 
   isReadOnlyDesc = false;
   isReadOnlyFields = false;
+  deny = false;
 
-  schemaProvider: string;
-  schemaName: string;
-  schemaVersion: string;
-
+  stateMode: Mode;
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'schemaContent', 'contractContent'];
 
-  constructor(private route: ActivatedRoute, public contractService: ContractService, public location: Location) {
-    this.contractDetail = new ContractDetailImpl(null, null);
+  constructor(private route: ActivatedRoute, public contractService: ContractService, public location: Location, public router: Router) {
+    this.contractDetail = new ContractDetailImpl('', '', '', '', null, null);
+    try {
+      if (router.getCurrentNavigation()) {
+        this.stateMode = router.getCurrentNavigation().extras.state.mode;
+        console.log(this.stateMode);
+        if (this.stateMode === Mode.ADD) {
+          const schemaKeyFromState = router.getCurrentNavigation().extras.state.data;
+          this.initPageWithSchemaKey(schemaKeyFromState);
+        } else {
+          this.contractDetail = router.getCurrentNavigation().extras.state.data;
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      this.deny = true;
+    }
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const schemaId = params.get('id');
-      this.schemaProvider = params.get('provider');
-      this.schemaName = params.get('name');
-      this.schemaVersion = params.get('version');
-      this.contractService.getSchemaDetailById(schemaId).subscribe(response => {
-        this.contractDetail = new SchemaDetailImpl(response).toContractDetailImpl();
-        this.contractDetail.schemaId = schemaId;
-        this.contractDetail.provider = this.schemaProvider;
-      });
+
+  }
+
+  private initPageWithSchemaKey(schemaKeyFromState: SchemaKeyImpl) {
+    const schemaId = schemaKeyFromState.id;
+    this.contractService.getSchemaDetailById(schemaId).subscribe(response => {
+      this.contractDetail = new SchemaDetailImpl(response).toContractDetailImpl();
+      this.contractDetail.schemaId = schemaId;
+      this.contractDetail.provider = schemaKeyFromState.provider;
+      this.contractDetail.schemaProvider = schemaKeyFromState.provider;
+      this.contractDetail.schemaName = schemaKeyFromState.name;
+      this.contractDetail.schemaVersion = schemaKeyFromState.version;
+      console.log(this.contractDetail);
     });
-    console.log(this.contractDetail);
   }
 
   onSubmit() {

@@ -34,6 +34,6 @@ export class SchemaDetailImpl implements SchemaDetail {
         const contractResponse = this.response
             .map(schemaResponse => new ContractFieldImpl(schemaResponse));
 
-        return new ContractDetailImpl(contractRequest, contractResponse);
+        return new ContractDetailImpl(this.id, this.provider, this.name, this.version, contractRequest, contractResponse);
     }
 }

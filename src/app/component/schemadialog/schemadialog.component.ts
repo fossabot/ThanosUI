@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Mode } from 'src/app/models/schema/Mode';
+import { Mode } from 'src/app/models/Mode';
 import { SchemaField } from 'src/app/models/schema/SchemaField';
 import { MatTableDataSource } from '@angular/material/table';
 import { SchemaDialogData } from 'src/app/models/schema/SchemaDialogData';

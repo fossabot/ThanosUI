@@ -5,7 +5,8 @@ import { ContractService } from 'src/app/service/contract.service';
 import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
 import { MatDialog } from '@angular/material/dialog';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
-import { Mode } from 'src/app/models/schema/Mode';
+import { Mode } from 'src/app/models/Mode';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-schema',
@@ -22,7 +23,7 @@ export class SchemaComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(contractService: ContractService, public dialog: MatDialog) {
+  constructor(contractService: ContractService, public dialog: MatDialog, public router: Router) {
     this.getDataSource(contractService);
     this.contractService = contractService;
   }
@@ -132,6 +133,10 @@ export class SchemaComponent implements OnInit {
 
   duplicateSchema(content: SchemaKeyImpl) {
     console.log('duplicateSchema - Not implement yet.');
+  }
+
+  addContract(content: SchemaKeyImpl) {
+    this.router.navigateByUrl('/detail/contract', {state: {mode: Mode.ADD, data: content}});
   }
 
 }
