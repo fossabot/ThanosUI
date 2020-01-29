@@ -16,7 +16,7 @@ export class ContractDetailComponent implements OnInit {
 
   subTitle = '契约详情 / Contract Detail';
   allertMessage = '';
-  contractDetail: ContractDetailImpl;
+  contractDetail: ContractDetailImpl = new ContractDetailImpl();
 
   isReadOnlyDesc = false;
   isReadOnlyFields = false;
@@ -26,7 +26,6 @@ export class ContractDetailComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'schemaContent', 'contractContent'];
 
   constructor(private route: ActivatedRoute, public contractService: ContractService, public location: Location, public router: Router) {
-    this.contractDetail = new ContractDetailImpl('', '', '', '', null, null);
     try {
       if (router.getCurrentNavigation()) {
         this.stateMode = router.getCurrentNavigation().extras.state.mode;
@@ -34,9 +33,22 @@ export class ContractDetailComponent implements OnInit {
         if (this.stateMode === Mode.ADD) {
           const schemaKeyFromState = router.getCurrentNavigation().extras.state.data;
           this.initPageWithSchemaKey(schemaKeyFromState);
-        } else {
-          this.contractDetail = router.getCurrentNavigation().extras.state.data;
+        } else { // EDIT & VIEW & DUPLICATE
+          const contractKey = router.getCurrentNavigation().extras.state.data;
+          this.contractService.getContractById(contractKey.id).subscribe(response => {
+            console.log(response);
+            this.contractDetail = new ContractDetailImpl(response);
+          });
+          if (this.stateMode === Mode.READ) {
+            this.isReadOnlyFields = true;
+            this.isReadOnlyDesc = true;
+          }
+          if (this.stateMode === Mode.DUPLICATE) {
+            this.contractDetail.name = this.contractDetail.name + ' copy';
+          }
+          console.log(this.contractDetail);
         }
+
       }
     } catch (e) {
       console.log(e);
@@ -45,7 +57,7 @@ export class ContractDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    window.scrollTo(0, 0);
   }
 
   private initPageWithSchemaKey(schemaKeyFromState: SchemaKeyImpl) {
@@ -64,10 +76,18 @@ export class ContractDetailComponent implements OnInit {
   onSubmit() {
     if (this.contractDetail.containAtLessOneField()) {
       console.log(this.contractDetail);
-      this.contractService.addContract(this.contractDetail).subscribe(response => {
-        console.log('Contract saved');
-        this.location.back();
-      });
+      if (this.stateMode === Mode.ADD || this.stateMode === Mode.DUPLICATE) {
+        this.contractDetail.id = null;
+        this.contractService.addContract(this.contractDetail).subscribe(response => {
+          console.log('Contract saved');
+          this.location.back();
+        });
+      } else {
+        this.contractService.updateContractDetail(this.contractDetail).subscribe(response => {
+          console.log('Contract updated');
+          this.location.back();
+        });
+      }
     } else {
       this.allertMessage = 'At less need to define 1 request field and 1 response field.';
       console.log(this.allertMessage);

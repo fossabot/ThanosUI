@@ -1,6 +1,7 @@
 import { ContractFieldImpl } from './ContractFieldImpl';
 
 export class ContractDetailImpl {
+    id: string;
     provider: string;
     consumer: string;
     name: string;
@@ -12,8 +13,12 @@ export class ContractDetailImpl {
     request: ContractFieldImpl[];
     response: ContractFieldImpl[];
 
-    constructor(schemaId: string, schemaProvider: string, schemaName: string, schemaVersion: string,
-                req: ContractFieldImpl[], res: ContractFieldImpl[]) {
+    constructor(obj?: any) {
+        Object.assign(this, obj);
+    }
+
+    setSchemaDetailInfo(schemaId: string, schemaProvider: string, schemaName: string, schemaVersion: string,
+                        req: ContractFieldImpl[], res: ContractFieldImpl[]) {
         this.schemaId = schemaId;
         this.schemaProvider = schemaProvider;
         this.schemaName = schemaName;

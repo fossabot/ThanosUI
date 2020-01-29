@@ -6,8 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ContractKey } from 'src/app/models/contract/ContractKey';
 import { Router } from '@angular/router';
-import { SchemaKey } from 'src/app/models/schema/SchemaKey';
-import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
+import { Mode } from 'src/app/models/Mode';
 
 @Component({
   selector: 'app-contract',
@@ -64,6 +63,7 @@ export class ContractComponent implements OnInit {
     });
 
     this.initFilters();
+    window.scrollTo(0, 0);
   }
 
   private initFilters() {
@@ -122,13 +122,13 @@ export class ContractComponent implements OnInit {
   }
 
   viewContract(element: ContractKeyImpl) {
-    console.log('Coming soon');
+    this.router.navigateByUrl('/detail/contract', { state: { mode: Mode.READ, data: element } });
   }
   editContract(element: ContractKeyImpl) {
-    console.log('Coming soon');
+    this.router.navigateByUrl('/detail/contract', { state: { mode: Mode.EDIT, data: element } });
   }
   deleteContract(element: ContractKeyImpl) {
-    this.contractService.deleteSchema(element.id).subscribe(response => {
+    this.contractService.deleteContract(element.id).subscribe(response => {
       const index = this.contractList.findIndex(schema => schema === element);
       this.contractList.splice(index, 1);
       this.refreshList();
@@ -138,7 +138,7 @@ export class ContractComponent implements OnInit {
     });
   }
   duplicateContract(element: ContractKeyImpl) {
-    console.log('Coming soon');
+    this.router.navigateByUrl('/detail/contract', { state: { mode: Mode.DUPLICATE, data: element } });
   }
 
   resetFilter() {

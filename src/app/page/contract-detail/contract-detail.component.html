@@ -143,10 +143,10 @@
             ERROR: {{allertMessage}}
         </div>
         <div class="bottom_btn" *ngIf="isReadOnlyFields">
-            <button mat-raised-button [routerLink]="['/schema']" color="accent">退出 / Back</button>
+            <button mat-raised-button [routerLink]="['/contract']" color="accent">退出 / Back</button>
         </div>
         <div class="bottom_btn" *ngIf="!isReadOnlyFields">
-            <button mat-raised-button [routerLink]="['/schema']" color="accent">退出 / Back</button>
+            <button mat-raised-button [routerLink]="['/contract']" color="accent">退出 / Back</button>
             <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" 
             [disabled]="!contractDetailForm.form.valid"> 保存 / Save </button>
         </div>

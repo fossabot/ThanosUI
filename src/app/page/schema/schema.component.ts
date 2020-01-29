@@ -30,6 +30,7 @@ export class SchemaComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    window.scrollTo(0, 0);
   }
 
   getDataSource(contractService: ContractService) {
