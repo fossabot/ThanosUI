@@ -136,7 +136,11 @@ export class SchemaComponent implements OnInit {
   }
 
   addContract(content: SchemaKeyImpl) {
-    this.router.navigateByUrl('/detail/contract', {state: {mode: Mode.ADD, data: content}});
+    this.router.navigateByUrl('/detail/contract', { state: { mode: Mode.ADD, data: content } });
+  }
+
+  searchContract(content: SchemaKeyImpl) {
+    this.router.navigateByUrl('/contract', { state: content });
   }
 
 }

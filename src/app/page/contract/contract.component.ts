@@ -5,6 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ContractKey } from 'src/app/models/contract/ContractKey';
+import { Router } from '@angular/router';
+import { SchemaKey } from 'src/app/models/schema/SchemaKey';
+import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
 
 @Component({
   selector: 'app-contract',
@@ -36,7 +39,22 @@ export class ContractComponent implements OnInit {
 
   customFilterPredicate: (data: ContractKeyImpl, filter: string) => boolean;
 
-  constructor(public contractService: ContractService) { }
+  constructor(public contractService: ContractService, public router: Router) {
+    try {
+      if (router.getCurrentNavigation()) {
+        const state = router.getCurrentNavigation().extras.state;
+        console.log(state);
+        this.filteredValues.provider = state.provider ? state.provider : '';
+        this.filteredValues.consumer = state.consumer ? state.consumer : '';
+        this.filteredValues.name = state.name ? state.name : '';
+        this.filteredValues.version = state.version ? state.version : '';
+        console.log(this.filteredValues);
+      }
+    } catch (e) {
+      console.log('No preset default state');
+    }
+  }
+
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -121,6 +139,16 @@ export class ContractComponent implements OnInit {
   }
   duplicateContract(element: ContractKeyImpl) {
     console.log('Coming soon');
+  }
+
+  resetFilter() {
+    this.globalFilter = '';
+    this.filteredValues = {
+      provider: '',
+      consumer: '',
+      name: '',
+      version: ''
+    };
   }
 
 }

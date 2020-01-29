@@ -1,4 +1,8 @@
 <div class="contract_container">
+    <div class="contract_head">
+        <button mat-raised-button color="accent" class="header_btn" (click)="resetFilter()">
+            <i class="material-icons">history</i> 重置查询条件 </button>
+    </div>
     <div *ngIf="showSpinLoader">
         <ng-http-loader></ng-http-loader>
     </div>
@@ -18,7 +22,7 @@
                         <mat-form-field>
                             <mat-label>生产者</mat-label>
                             <input matInput class="form-field" [formControl]="providerFilter"
-                                placeholder="Provider Filter">
+                                placeholder="Provider Filter" [value]="filteredValues.provider">
                         </mat-form-field>
                     </div>
                 </th>
@@ -32,7 +36,7 @@
                         <mat-form-field >
                             <mat-label>消费者</mat-label>
                             <input matInput class="form-field" [formControl]="consumerFilter"
-                                placeholder="Consumer Filter">
+                                placeholder="Consumer Filter" [value]="filteredValues.consumer">
                         </mat-form-field >
                     </div>
                 </th>
@@ -46,7 +50,7 @@
                         <mat-form-field>
                             <mat-label>契约名称</mat-label>
                             <input matInput class="form-field" [formControl]="nameFilter"
-                                placeholder="Name Filter">
+                                placeholder="Name Filter" [value]="filteredValues.name">
                         </mat-form-field>
                     </div>
                 </th>
@@ -60,7 +64,7 @@
                         <mat-form-field>
                             <mat-label>契约版本</mat-label>
                             <input matInput class="form-field" [formControl]="versionFilter"
-                                placeholder="Version Filter">
+                                placeholder="Version Filter" [value]="filteredValues.version">
                         </mat-form-field>
                     </div>
                 </th>
