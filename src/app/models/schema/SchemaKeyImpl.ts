@@ -7,6 +7,7 @@ export class SchemaKeyImpl {
     constructor(obj?: any) {
         Object.assign(this, obj);
     }
+
     isValid(): boolean {
         if (!this.provider || 0 === this.provider.length) {
             return false;

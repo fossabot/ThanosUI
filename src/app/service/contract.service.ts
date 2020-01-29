@@ -8,6 +8,7 @@ import { TcpResponseDTO } from '../models/mockmapping/TcpResponseDTO';
 import { SchemaDetail } from '../models/schema/SchemaDetail';
 import { SchemaKey } from '../models/schema/SchemaKey';
 import { ContractDetailImpl } from '../models/contract/ContractDetailImpl';
+import { ContractKey } from '../models/contract/ContractKey';
 
 @Injectable()
 export class ContractService {
@@ -51,8 +52,8 @@ export class ContractService {
             '/contracts', contractDetailImpl);
     }
 
-    getAllContracts(): Observable<ContractDetailImpl[]> {
-        return this.apiService.get(environment.contractService_url + '/contracts');
+    getAllContractKeys(): Observable<ContractKey[]> {
+        return this.apiService.get(environment.contractService_url + '/contracts/keys');
     }
 
     getContractsBySchemaId(schemaId: string): Observable<ContractDetailImpl[]> {
@@ -63,5 +64,15 @@ export class ContractService {
     getContractById(id: string): Observable<ContractDetailImpl> {
         return this.apiService.get(environment.contractService_url +
             '/contracts/id/' + id);
+    }
+
+    deleteContract(id: string): Observable<any> {
+        console.log('going to delete ' + id);
+        return this.apiService.delete(environment.contractService_url +
+            '/contracts/id/' + id);
+    }
+
+    updateContractDetail(contractDetsil: ContractDetailImpl): Observable<any> {
+        return this.apiService.put(environment.contractService_url + '/contracts', ContractDetailImpl);
     }
 }

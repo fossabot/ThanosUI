@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContractService } from 'src/app/service/contract.service';
 import { SchemaDetailImpl } from 'src/app/models/schema/SchemaDetailImpl';
 import { ContractDetailImpl } from 'src/app/models/contract/ContractDetailImpl';
-import { MatTableDataSource } from '@angular/material/table';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-contract-detail',
@@ -25,7 +25,7 @@ export class ContractDetailComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'schemaContent', 'contractContent'];
 
-  constructor(private route: ActivatedRoute, public contractService: ContractService) {
+  constructor(private route: ActivatedRoute, public contractService: ContractService, public location: Location) {
     this.contractDetail = new ContractDetailImpl(null, null);
   }
 
@@ -49,6 +49,7 @@ export class ContractDetailComponent implements OnInit {
       console.log(this.contractDetail);
       this.contractService.addContract(this.contractDetail).subscribe(response => {
         console.log('Contract saved');
+        this.location.back();
       });
     } else {
       this.allertMessage = 'At less need to define 1 request field and 1 response field.';
