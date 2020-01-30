@@ -4,9 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ContractService } from 'src/app/service/contract.service';
 import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
 import { MatDialog } from '@angular/material/dialog';
-import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
 import { Mode } from 'src/app/models/Mode';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 
 @Component({

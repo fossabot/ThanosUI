@@ -14,7 +14,6 @@ import { HomeModule } from '../home/home.module';
 import { ContractModule } from '../contract/contract.module';
 import { SchemaModule } from '../schema/schema.module';
 import { NgHttpLoaderModule } from 'ng-http-loader';
-import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 
 
@@ -26,7 +25,6 @@ import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm
     DetailLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    SchemadialogComponent,
     ConfirmDialogComponent
   ],
   imports: [
@@ -46,7 +44,6 @@ import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm
     DetailLayoutComponent
   ],
   entryComponents: [
-    SchemadialogComponent,
     ConfirmDialogComponent
   ],
 })
