@@ -6,6 +6,7 @@ import { ContractDetailImpl } from 'src/app/models/contract/ContractDetailImpl';
 import { Location } from '@angular/common';
 import { Mode } from 'src/app/models/Mode';
 import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contract-detail',
@@ -25,7 +26,7 @@ export class ContractDetailComponent implements OnInit {
   stateMode: Mode;
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'schemaContent', 'contractContent'];
 
-  constructor(private route: ActivatedRoute, public contractService: ContractService, public location: Location, public router: Router) {
+  constructor(public contractService: ContractService, public location: Location, public router: Router, public snackBar: MatSnackBar) {
     try {
       if (router.getCurrentNavigation()) {
         this.stateMode = router.getCurrentNavigation().extras.state.mode;
@@ -80,6 +81,9 @@ export class ContractDetailComponent implements OnInit {
         this.contractDetail.id = null;
         this.contractService.addContract(this.contractDetail).subscribe(response => {
           console.log('Contract saved');
+          this.snackBar.open('Contract saved', 'Noted', {
+            duration: 2000,
+          });
           this.location.back();
         });
       } else {

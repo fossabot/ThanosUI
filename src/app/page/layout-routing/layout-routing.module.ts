@@ -15,7 +15,7 @@ import { ContractModule } from '../contract/contract.module';
 import { SchemaModule } from '../schema/schema.module';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
-import { DetailHeaderComponent } from 'src/app/component/detail-header/detail-header.component';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { DetailHeaderComponent } from 'src/app/component/detail-header/detail-he
     DetailLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    SchemadialogComponent
+    SchemadialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +44,8 @@ import { DetailHeaderComponent } from 'src/app/component/detail-header/detail-he
     DetailLayoutComponent
   ],
   entryComponents: [
-    SchemadialogComponent
+    SchemadialogComponent,
+    ConfirmDialogComponent
   ],
 })
 export class LayoutRoutingModule { }

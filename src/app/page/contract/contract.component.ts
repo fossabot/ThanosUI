@@ -7,6 +7,8 @@ import { FormControl } from '@angular/forms';
 import { ContractKey } from 'src/app/models/contract/ContractKey';
 import { Router } from '@angular/router';
 import { Mode } from 'src/app/models/Mode';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-contract',
@@ -38,7 +40,7 @@ export class ContractComponent implements OnInit {
 
   customFilterPredicate: (data: ContractKeyImpl, filter: string) => boolean;
 
-  constructor(public contractService: ContractService, public router: Router) {
+  constructor(public contractService: ContractService, public router: Router, public dialog: MatDialog) {
     try {
       if (router.getCurrentNavigation()) {
         const state = router.getCurrentNavigation().extras.state;
@@ -128,13 +130,23 @@ export class ContractComponent implements OnInit {
     this.router.navigateByUrl('/detail/contract', { state: { mode: Mode.EDIT, data: element } });
   }
   deleteContract(element: ContractKeyImpl) {
-    this.contractService.deleteContract(element.id).subscribe(response => {
-      const index = this.contractList.findIndex(schema => schema === element);
-      this.contractList.splice(index, 1);
-      this.refreshList();
-    }, error => {
-      this.allertMessage = error.error;
-      console.log('Fail to remove contract');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {title: 'Attention', message: 'Really delete this contract?'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.contractService.deleteContract(element.id).subscribe(response => {
+          const index = this.contractList.findIndex(schema => schema === element);
+          this.contractList.splice(index, 1);
+          this.refreshList();
+        }, error => {
+          this.allertMessage = error.error;
+          console.log('Fail to remove contract');
+        });
+      } else {
+        console.log('Confirmed not to proceed delete');
+      }
     });
   }
   duplicateContract(element: ContractKeyImpl) {
