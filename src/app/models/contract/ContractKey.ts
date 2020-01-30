@@ -4,4 +4,6 @@ export interface ContractKey {
     consumer: string;
     name: string;
     version: string;
+
+    schemaIndex: string;
 }

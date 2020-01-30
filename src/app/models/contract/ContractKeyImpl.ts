@@ -5,6 +5,8 @@ export class ContractKeyImpl {
     name: string;
     version: string;
 
+    schemaIndex: string;
+
     constructor(obj?: any) {
         Object.assign(this, obj);
     }

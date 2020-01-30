@@ -17,19 +17,21 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ContractComponent implements OnInit {
 
-  displayedColumns: string[] = ['provider', 'consumer', 'name', 'version', 'actions'];
+  displayedColumns: string[] = ['schemaIndex', 'provider', 'consumer', 'name', 'version', 'actions'];
   contractList: ContractKeyImpl[];
   dataSource = new MatTableDataSource(this.contractList);
   showSpinLoader = false;
   allertMessage = '';
 
   globalFilter = '';
+  schemaIndexFilter = new FormControl();
   providerFilter = new FormControl();
   consumerFilter = new FormControl();
   nameFilter = new FormControl();
   versionFilter = new FormControl();
 
   filteredValues = {
+    schemaIndex: '',
     provider: '',
     consumer: '',
     name: '',
@@ -41,34 +43,37 @@ export class ContractComponent implements OnInit {
   customFilterPredicate: (data: ContractKeyImpl, filter: string) => boolean;
 
   constructor(public contractService: ContractService, public router: Router, public dialog: MatDialog) {
+
     try {
       if (router.getCurrentNavigation()) {
         const state = router.getCurrentNavigation().extras.state;
         console.log(state);
-        this.filteredValues.provider = state.provider ? state.provider : '';
-        this.filteredValues.consumer = state.consumer ? state.consumer : '';
-        this.filteredValues.name = state.name ? state.name : '';
-        this.filteredValues.version = state.version ? state.version : '';
-        console.log(this.filteredValues);
+        const schemaProvider = state.provider ? state.provider : '';
+        const schemaName = state.name ? state.name : '';
+        const schemaVersion = state.version ? state.version : '';
+        const filterKey = schemaProvider + '-' + schemaName + '-' + schemaVersion;
+        this.applyFilter(filterKey);
       }
     } catch (e) {
       console.log('No preset default state');
     }
   }
 
-
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.initFilters();
     this.contractService.getAllContractKeys().subscribe(response => {
       this.contractList = response.map(res => new ContractKeyImpl(res));
       this.refreshList();
     });
-
-    this.initFilters();
     window.scrollTo(0, 0);
   }
 
   private initFilters() {
+    this.schemaIndexFilter.valueChanges.subscribe((schemaIndexFilterValue) => {
+      this.filteredValues.schemaIndex = schemaIndexFilterValue;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
     this.providerFilter.valueChanges.subscribe((providerFilterValue) => {
       this.filteredValues.provider = providerFilterValue;
       this.dataSource.filter = JSON.stringify(this.filteredValues);
@@ -89,7 +94,8 @@ export class ContractComponent implements OnInit {
     this.dataSource.filterPredicate = (data: ContractKey, filter: string) => {
       let globalMatch = !this.globalFilter;
       if (this.globalFilter) {
-        globalMatch = this.match(data.provider, this.globalFilter) ||
+        globalMatch = this.match(data.schemaIndex, this.globalFilter) ||
+          this.match(data.provider, this.globalFilter) ||
           this.match(data.consumer, this.globalFilter) ||
           this.match(data.name, this.globalFilter) ||
           this.match(data.version, this.globalFilter);
@@ -98,7 +104,8 @@ export class ContractComponent implements OnInit {
         return;
       }
       const searchString = JSON.parse(filter);
-      return this.match(data.provider, searchString.provider) &&
+      return this.match(data.schemaIndex, searchString.schemaIndex) &&
+        this.match(data.provider, searchString.provider) &&
         this.match(data.consumer, searchString.consumer) &&
         this.match(data.version, searchString.version) &&
         this.match(data.name, searchString.name);
@@ -109,8 +116,6 @@ export class ContractComponent implements OnInit {
     return data.toString().trim().toLowerCase()
       .indexOf(searchString.toLowerCase()) !== -1;
   }
-
-
 
   refreshList() {
     this.dataSource.data = this.contractList;
@@ -131,7 +136,7 @@ export class ContractComponent implements OnInit {
   }
   deleteContract(element: ContractKeyImpl) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {title: 'Attention', message: 'Really delete this contract?'}
+      data: { title: 'Attention', message: 'Really delete this contract?' }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -156,11 +161,13 @@ export class ContractComponent implements OnInit {
   resetFilter() {
     this.globalFilter = '';
     this.filteredValues = {
+      schemaIndex: '',
       provider: '',
       consumer: '',
       name: '',
       version: ''
     };
+    this.applyFilter('');
   }
 
 }
