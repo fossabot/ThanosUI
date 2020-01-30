@@ -15,9 +15,7 @@ import { ContractModule } from '../contract/contract.module';
 import { SchemaModule } from '../schema/schema.module';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
-
-
-
+import { NotifyDialogComponent } from 'src/app/component/notify-dialog/notify-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +23,8 @@ import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm
     DetailLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NotifyDialogComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +43,8 @@ import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm
     DetailLayoutComponent
   ],
   entryComponents: [
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NotifyDialogComponent
   ],
 })
 export class LayoutRoutingModule { }

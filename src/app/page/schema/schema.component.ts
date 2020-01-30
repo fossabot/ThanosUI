@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Mode } from 'src/app/models/Mode';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
+import { NotifyDialogComponent } from 'src/app/component/notify-dialog/notify-dialog.component';
 
 @Component({
   selector: 'app-schema',
@@ -52,23 +53,41 @@ export class SchemaComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   deleteSchema(content: SchemaKeyImpl) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {title: 'Attention', message: 'Really going to delete this schema?'}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.contractService.deleteSchema(content.id).subscribe(response => {
-          const index = this.schemaList.findIndex(schema => schema === content);
-          this.schemaList.splice(index, 1);
-          this.refreshList(this.schemaList);
-        }, error => {
-          console.log('Fail to remove schema');
-        });
-      } else {
-        console.log('Confirmed not to proceed delete');
-      }
-    });
+    this.contractService.getContractsCountBySchemaId(content.id)
+      .subscribe(response => {
+        this.popupDialog(content, response);
+      }, error => {
+        console.log('Fail to get count from backend');
+      });
   }
+
+  private popupDialog(content: SchemaKeyImpl, contractCount: number) {
+    if (contractCount === 0) {
+      // proceed delete confirm
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: { title: 'Attention', message: 'Really going to delete this schema?' }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.contractService.deleteSchema(content.id).subscribe(response => {
+            const index = this.schemaList.findIndex(schema => schema === content);
+            this.schemaList.splice(index, 1);
+            this.refreshList(this.schemaList);
+          }, error => {
+            console.log('Fail to remove schema');
+          });
+        } else {
+          console.log('Confirmed not to proceed delete');
+        }
+      });
+    } else {
+      const msg = 'Still have ' + contractCount + 'contract, please remove all associated contracts before remove schema.';
+      this.dialog.open(NotifyDialogComponent, {
+        data: { title: 'Notice', message: msg }
+      });
+    }
+  }
+
   viewSchema(content: SchemaKeyImpl) {
     this.router.navigateByUrl('/detail/schema', { state: { mode: Mode.READ, data: content } });
   }

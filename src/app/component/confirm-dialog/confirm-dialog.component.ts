@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ConfirmDialogData } from 'src/app/models/ConfirmDialogData';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GenericDialogData } from 'src/app/models/GenericDialogData';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -13,7 +13,7 @@ export class ConfirmDialogComponent implements OnInit {
   message = '';
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {
+              @Inject(MAT_DIALOG_DATA) public data: GenericDialogData) {
     this.title = data.title;
     this.message = data.message;
   }

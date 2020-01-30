@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutRoutingModule } from './page/layout-routing/layout-routing.module';
+import { NotifyDialogComponent } from './component/notify-dialog/notify-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     LayoutRoutingModule,

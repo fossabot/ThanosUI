@@ -61,6 +61,11 @@ export class ContractService {
             '/contracts/schemaId/' + schemaId);
     }
 
+    getContractsCountBySchemaId(schemaId: string): Observable<number> {
+        return this.apiService.get(environment.contractService_url +
+            '/contracts/count/schemaId/' + schemaId);
+    }
+
     getContractById(id: string): Observable<ContractDetailImpl> {
         return this.apiService.get(environment.contractService_url +
             '/contracts/id/' + id);
