@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MockRoutingModule } from './mock-routing.module';
 import { MockComponent } from './mock.component';
-import { MaterialModule } from 'src/app/models/MaterialModule';
+import { MaterialModule } from 'src/app/common/MaterialModule';
 import { FormsModule } from '@angular/forms';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 

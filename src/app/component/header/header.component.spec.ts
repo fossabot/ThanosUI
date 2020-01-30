@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import { MaterialModule } from 'src/app/models/MaterialModule';
+import { MaterialModule } from 'src/app/common/MaterialModule';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from 'src/app/page/home/home.component';
 

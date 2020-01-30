@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from './mock.component';
-import { MaterialModule } from 'src/app/models/MaterialModule';
+import { MaterialModule } from 'src/app/common/MaterialModule';
 
 describe.skip('MockComponent', () => {
   let component: MockComponent;

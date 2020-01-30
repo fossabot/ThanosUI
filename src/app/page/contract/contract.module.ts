@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ContractRoutingModule } from './contract-routing.module';
 import { ContractComponent } from './contract.component';
-import { MaterialModule } from 'src/app/models/MaterialModule';
+import { MaterialModule } from 'src/app/common/MaterialModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 

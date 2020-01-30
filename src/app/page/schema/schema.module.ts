@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SchemaRoutingModule } from './schema-routing.module';
 import { SchemaComponent } from './schema.component';
-import { MaterialModule } from 'src/app/models/MaterialModule';
+import { MaterialModule } from 'src/app/common/MaterialModule';
 import { FormsModule } from '@angular/forms';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 
