@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Mode } from 'src/app/models/Mode';
 import { SchemaKey } from 'src/app/models/schema/SchemaKey';
 import { Location } from '@angular/common';
+import { MockServerService } from 'src/app/service/mockserver.service';
 
 @Component({
   selector: 'app-schema-detail',
@@ -34,7 +35,8 @@ export class SchemaDetailComponent implements OnInit {
   // incomingData: SchemaDialogData;
   schema: SchemaDetailImpl = new SchemaDetailImpl();
 
-  constructor(public contractService: ContractService, public location: Location, public router: Router, public snackBar: MatSnackBar) {
+  constructor(public contractService: ContractService, public mockServerService: MockServerService,
+              public location: Location, public router: Router, public snackBar: MatSnackBar) {
     try {
       if (router.getCurrentNavigation()) {
         this.stateMode = router.getCurrentNavigation().extras.state.mode;
@@ -117,35 +119,58 @@ export class SchemaDetailComponent implements OnInit {
       console.log(this.schema);
 
       this.contractService.addSchemaDetail(this.schema).subscribe(response => {
-        console.log('Successfully add schema');
-        this.snackBar.open('Schema added', 'Noted', {
-          duration: 2000,
-        });
+        this.notifyMockServer();
         this.location.back();
       },
         error => {
           this.alertMessage = 'Fail to add schema, please exit and retry later';
           this.alertDetail = error.error;
-          console.log(this.alertMessage);
+          console.log(this.alertDetail);
         });
     } else {
       console.log(this.schema);
       // this is for edit
       this.contractService.updateSchemaDetail(this.schema).subscribe(response => {
-        console.log('Successfully edit schema');
         this.alertMessage = '';
         this.alertDetail = '';
-        this.snackBar.open('Contract updated successfully', 'Noted', {
-          duration: 2000,
-        });
+        this.notifyMockServer();
         this.location.back();
       },
         error => {
           this.alertMessage = 'Fail to update schema, please exit and retry later';
           this.alertDetail = error.error;
-          console.log(this.alertMessage);
+          console.log(this.alertDetail);
         });
     }
+  }
+
+  private notifyMockServer() {
+    this.mockServerService.notifySchemaAddOrUpdate(this.schema).subscribe(result => {
+      this.snackBar.open('Schema saved and notified mock server', 'Noted', {
+        duration: 2000,
+      });
+    }, err => {
+      this.snackBar.open('Schema saved and but fail to notify mock server', 'Noted', {
+        duration: 3000,
+      });
+    });
+  }
+
+  delete(index: number, fieldList: SchemaField[], dataSource: any) {
+    console.log('Going to remove entry ' + index);
+    fieldList.splice(index, 1);
+    dataSource.data = fieldList;
+  }
+
+  addField(index: number, fieldList: SchemaField[], dataSource: any) {
+    console.log('going to add item behind ' + index);
+    fieldList.splice(index + 1, 0, {
+      name: '',
+      type: '',
+      content: '',
+      length: 0
+    });
+    dataSource.data = fieldList;
   }
 
 }

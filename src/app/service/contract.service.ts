@@ -80,4 +80,5 @@ export class ContractService {
     updateContractDetail(contractDetailImpl: ContractDetailImpl): Observable<any> {
         return this.apiService.put(environment.contractService_url + '/contracts', contractDetailImpl);
     }
+
 }

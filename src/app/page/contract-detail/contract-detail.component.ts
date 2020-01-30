@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { Mode } from 'src/app/models/Mode';
 import { SchemaKeyImpl } from 'src/app/models/schema/SchemaKeyImpl';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MockServerService } from 'src/app/service/mockserver.service';
 
 @Component({
   selector: 'app-contract-detail',
@@ -16,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ContractDetailComponent implements OnInit {
 
   subTitle = '契约详情 / Contract Detail';
-  allertMessage = '';
+  alertMessage = '';
   contractDetail: ContractDetailImpl = new ContractDetailImpl();
 
   isReadOnlyDesc = false;
@@ -26,7 +27,8 @@ export class ContractDetailComponent implements OnInit {
   stateMode: Mode;
   displayedColumns: string[] = ['id', 'name', 'type', 'length', 'schemaContent', 'contractContent'];
 
-  constructor(public contractService: ContractService, public location: Location, public router: Router, public snackBar: MatSnackBar) {
+  constructor(public contractService: ContractService, public mockServerService: MockServerService,
+              public location: Location, public router: Router, public snackBar: MatSnackBar) {
     try {
       if (router.getCurrentNavigation()) {
         this.stateMode = router.getCurrentNavigation().extras.state.mode;
@@ -80,22 +82,30 @@ export class ContractDetailComponent implements OnInit {
       if (this.stateMode === Mode.ADD || this.stateMode === Mode.DUPLICATE) {
         this.contractDetail.id = null;
         this.contractService.addContract(this.contractDetail).subscribe(response => {
-          console.log('Contract saved');
-          this.snackBar.open('Contract saved', 'Noted', {
-            duration: 2000,
-          });
+          this.notifyMockServer();
           this.location.back();
         });
       } else {
         this.contractService.updateContractDetail(this.contractDetail).subscribe(response => {
-          console.log('Contract updated');
+          this.notifyMockServer();
           this.location.back();
         });
       }
     } else {
-      this.allertMessage = 'At less need to define 1 request field and 1 response field.';
-      console.log(this.allertMessage);
+      this.alertMessage = 'At less need to define 1 request field and 1 response field.';
+      console.log(this.alertMessage);
     }
   }
 
+  private notifyMockServer() {
+    this.mockServerService.notifyContractAddOrUpdate(this.contractDetail).subscribe(result => {
+      this.snackBar.open('Contract saved and notified mock server', 'Noted', {
+        duration: 2000,
+      });
+    }, err => {
+      this.snackBar.open('Contract saved and but fail to notify mock server', 'Noted', {
+        duration: 3000,
+      });
+    });
+  }
 }

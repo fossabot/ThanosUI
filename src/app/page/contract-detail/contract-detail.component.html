@@ -76,7 +76,7 @@
                     <th mat-header-cell *matHeaderCellDef> ContractContent </th>
                     <td mat-cell *matCellDef="let element">
                         <mat-form-field>
-                            <input type="text" minlength="1" maxlength="20" matInput
+                            <input type="text" minlength="1" matInput
                                 [(ngModel)]="element.contractContent" [disabled]="isReadOnlyFields"
                                 [ngModelOptions]="{standalone: true}">
                         </mat-form-field>
@@ -129,7 +129,7 @@
                     <th mat-header-cell *matHeaderCellDef> ContractContent </th>
                     <td mat-cell *matCellDef="let element">
                         <mat-form-field>
-                            <input type="text" required minlength="1" maxlength="20" matInput
+                            <input type="text" required minlength="1" matInput
                                 [(ngModel)]="element.contractContent" [disabled]="isReadOnlyFields"
                                 [ngModelOptions]="{standalone: true}">
                         </mat-form-field>
@@ -139,8 +139,8 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
-        <div *ngIf="allertMessage.length != 0" class='alert'>
-            ERROR: {{allertMessage}}
+        <div *ngIf="alertMessage.length != 0" class='alert'>
+            ERROR: {{alertMessage}}
         </div>
         <div class="bottom_btn" *ngIf="isReadOnlyFields">
             <button mat-raised-button [routerLink]="['/contract']" color="accent">退出 / Back</button>

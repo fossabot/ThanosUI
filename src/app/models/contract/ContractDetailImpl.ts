@@ -10,6 +10,7 @@ export class ContractDetailImpl {
     schemaProvider: string;
     schemaName: string;
     schemaVersion: string;
+    schemaIndex: string;
     request: ContractFieldImpl[];
     response: ContractFieldImpl[];
 
