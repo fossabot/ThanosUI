@@ -38,10 +38,11 @@ export class SchemaDetailComponent implements OnInit {
     try {
       if (router.getCurrentNavigation()) {
         this.stateMode = router.getCurrentNavigation().extras.state.mode;
-        console.log(this.stateMode);
-        if (this.stateMode !== Mode.ADD) {
-          this.schemaKey = router.getCurrentNavigation().extras.state.data;
-          this.initPageWithSchemaKey(this.schemaKey);
+        this.schemaKey = router.getCurrentNavigation().extras.state.data;
+        this.initPageWithSchemaKey(this.schemaKey);
+        if (this.stateMode === Mode.READ) {
+          this.isReadOnlyDesc = true;
+          this.isReadOnlyFields = true;
         }
       }
     } catch (e) {  // this is for newly add
@@ -65,7 +66,6 @@ export class SchemaDetailComponent implements OnInit {
       const temp = new SchemaDetailImpl(response);
       if (temp.isValid()) {
         this.schema = temp;
-        this.schema.id = this.schemaKey.id;
         if (this.stateMode === Mode.DUPLICATE) {
           this.schema.id = '';
           this.schemaKey.name = temp.name + ' copy';
@@ -86,7 +86,6 @@ export class SchemaDetailComponent implements OnInit {
     } else {
       this.requestList = this.schema.request;
     }
-    console.log(this.requestList);
     this.reqDataSource.data = this.requestList;
 
     if (!this.schema.response) {
@@ -99,7 +98,6 @@ export class SchemaDetailComponent implements OnInit {
     } else {
       this.responseList = this.schema.response;
     }
-    console.log(this.responseList);
     this.resDataSource.data = this.responseList;
   }
   ngOnInit() {

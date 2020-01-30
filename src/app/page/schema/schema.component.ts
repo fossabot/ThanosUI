@@ -71,24 +71,7 @@ export class SchemaComponent implements OnInit {
     });
   }
   viewSchema(content: SchemaKeyImpl) {
-    const dialogRef = this.dialog.open(SchemadialogComponent, {
-      width: '85%',
-      data: {
-        title: '查看接口详情',
-        id: content.id,
-        provider: content.provider,
-        name: content.name,
-        version: content.version,
-        mode: Mode.READ,
-        contractService: this.contractService
-      },
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-    });
+    this.router.navigateByUrl('/detail/schema', { state: { mode: Mode.READ, data: content } });
   }
 
   addSchema() {
