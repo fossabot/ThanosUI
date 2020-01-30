@@ -65,6 +65,11 @@ export class SchemaDetailComponent implements OnInit {
       const temp = new SchemaDetailImpl(response);
       if (temp.isValid()) {
         this.schema = temp;
+        this.schema.id = this.schemaKey.id;
+        if (this.stateMode === Mode.DUPLICATE) {
+          this.schema.id = '';
+          this.schemaKey.name = temp.name + ' copy';
+        }
       }
       this.initFieldList();
     });
@@ -103,8 +108,9 @@ export class SchemaDetailComponent implements OnInit {
 
   onSubmit() {
     console.log('onSubmit is called');
-    if (!this.schema.id) {
-      // this is for ADD
+    console.log(this.schema);
+    if (!this.schema.id || this.schema.id === '') {
+      // this is for ADD and duplicate
       this.schema.provider = this.schemaKey.provider;
       this.schema.name = this.schemaKey.name;
       this.schema.version = this.schemaKey.version;
@@ -125,12 +131,16 @@ export class SchemaDetailComponent implements OnInit {
           console.log(this.alertMessage);
         });
     } else {
+      console.log(this.schema);
       // this is for edit
       this.contractService.updateSchemaDetail(this.schema).subscribe(response => {
         console.log('Successfully edit schema');
+        this.alertMessage = '';
+        this.alertDetail = '';
         this.snackBar.open('Contract updated successfully', 'Noted', {
           duration: 2000,
         });
+        this.location.back();
       },
         error => {
           this.alertMessage = 'Fail to update schema, please exit and retry later';

@@ -96,24 +96,8 @@ export class SchemaComponent implements OnInit {
   }
 
   editSchema(content: SchemaKeyImpl) {
-    const dialogRef = this.dialog.open(SchemadialogComponent, {
-      width: '85%',
-      data: {
-        title: '编辑接口详情',
-        id: content.id,
-        provider: content.provider,
-        name: content.name,
-        version: content.version,
-        mode: Mode.EDIT,
-        contractService: this.contractService
-      },
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed for edit');
-      console.log(result);
-    });
+    console.log(content);
+    this.router.navigateByUrl('/detail/schema', { state: { mode: Mode.EDIT, data: content } });
   }
 
   transformMsg() {
@@ -121,7 +105,8 @@ export class SchemaComponent implements OnInit {
   }
 
   duplicateSchema(content: SchemaKeyImpl) {
-    console.log('duplicateSchema - Not implement yet.');
+    console.log(content);
+    this.router.navigateByUrl('/detail/schema', { state: { mode: Mode.DUPLICATE, data: content } });
   }
 
   addContract(content: SchemaKeyImpl) {
