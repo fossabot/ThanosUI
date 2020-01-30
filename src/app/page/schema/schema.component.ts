@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SchemadialogComponent } from 'src/app/component/schemadialog/schemadialog.component';
 import { Mode } from 'src/app/models/Mode';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-schema',
@@ -52,12 +53,21 @@ export class SchemaComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   deleteSchema(content: SchemaKeyImpl) {
-    this.contractService.deleteSchema(content.id).subscribe(response => {
-      const index = this.schemaList.findIndex(schema => schema === content);
-      this.schemaList.splice(index, 1);
-      this.refreshList(this.schemaList);
-    }, error => {
-      console.log('Fail to remove schema');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {title: 'Attention', message: 'Really going to delete this schema?'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.contractService.deleteSchema(content.id).subscribe(response => {
+          const index = this.schemaList.findIndex(schema => schema === content);
+          this.schemaList.splice(index, 1);
+          this.refreshList(this.schemaList);
+        }, error => {
+          console.log('Fail to remove schema');
+        });
+      } else {
+        console.log('Confirmed not to proceed delete');
+      }
     });
   }
   viewSchema(content: SchemaKeyImpl) {
@@ -82,29 +92,7 @@ export class SchemaComponent implements OnInit {
   }
 
   addSchema() {
-    const dialogRef = this.dialog.open(SchemadialogComponent, {
-      width: '85%',
-      data: {
-        title: '添加接口',
-        id: '',
-        provider: '',
-        name: '',
-        version: '',
-        mode: Mode.ADD,
-        contractService: this.contractService
-      },
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed from add');
-      console.log(result);
-      const schema: SchemaKeyImpl = new SchemaKeyImpl(result);
-      if (schema.isValid()) {
-        this.schemaList.push(result);
-        this.refreshList(this.schemaList);
-      }
-    });
+    this.router.navigateByUrl('/detail/schema');
   }
 
   editSchema(content: SchemaKeyImpl) {

@@ -7,6 +7,8 @@ import { MockModule } from '../mock/mock.module';
 import { SchemaModule } from '../schema/schema.module';
 import { ContractModule } from '../contract/contract.module';
 import { ContractDetailModule } from '../contract-detail/contract-detail.module';
+import { SchemaDetailComponent } from '../schema-detail/schema-detail.component';
+import { SchemaDetailModule } from '../schema-detail/schema-detail.module';
 
 
 const routes: Routes = [
@@ -30,6 +32,7 @@ const routes: Routes = [
     component: DetailLayoutComponent,
     children: [
       { path: 'contract', loadChildren: () => ContractDetailModule },
+      { path: 'schema', loadChildren: () => SchemaDetailModule },
     ]
   },
 ];
