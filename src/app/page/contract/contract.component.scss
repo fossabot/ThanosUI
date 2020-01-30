@@ -1,6 +1,19 @@
+.header-card {
+    margin: 0 auto;
+    margin-top: 70px;
+    text-align: left;
+    padding-left: 50px;
+    width: 100%;
+    color: lightgray;
+}
+.header-card>h1{
+    display: inline;
+}
+.header-card>p{
+    display: inline;
+}
 .contract_container{
     margin: 0 auto;
-    margin-top: 80px;
     text-align: center;
     width: 90%;
 }
