@@ -198,5 +198,12 @@ export class ContractComponent implements OnInit {
       });
     });
   }
+  generateJunit(element: ContractKeyImpl) {
+    console.log('coming soon');
+  }
+
+  generateInterfaceTest(element: ContractKeyImpl) {
+    console.log('coming soon');
+  }
 
 }

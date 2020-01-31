@@ -113,6 +113,16 @@
                             <mat-icon>control_point_duplicate</mat-icon>
                             <span>复制契约</span>
                         </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="generateJunit(element)">
+                            <mat-icon>verified_user</mat-icon>
+                            <span>生成单元测试</span>
+                        </button>
+                        <button mat-menu-item (click)="generateInterfaceTest(element)" disabled>
+                            <mat-icon>compare_arrows</mat-icon>
+                            <span>生成接口测试</span>
+                        </button>
+                        <mat-divider></mat-divider>
                         <button mat-menu-item (click)="generateRequest(element)">
                             <mat-icon>short_text</mat-icon>
                             <span>生成定长请求</span>
