@@ -147,11 +147,11 @@ export class SchemaDetailComponent implements OnInit {
   private notifyMockServer() {
     this.mockServerService.notifySchemaAddOrUpdate(this.schema).subscribe(result => {
       this.snackBar.open('Schema saved and notified mock server', 'Noted', {
-        duration: 2000,
+        duration: 3000,
       });
     }, err => {
       this.snackBar.open('Schema saved and but fail to notify mock server', 'Noted', {
-        duration: 3000,
+        duration: 5000,
       });
     });
   }

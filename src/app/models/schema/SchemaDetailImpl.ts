@@ -27,6 +27,10 @@ export class SchemaDetailImpl implements SchemaDetail {
         }
     }
 
+    private getSchemaIndex(): string {
+        return this.provider + '-' + this.name + '-' + this.version;
+    }
+
     toContractDetailImpl(): ContractDetailImpl {
         const contractRequest = this.request
             .map(schemaRequest => new ContractFieldImpl(schemaRequest));
@@ -35,7 +39,8 @@ export class SchemaDetailImpl implements SchemaDetail {
             .map(schemaResponse => new ContractFieldImpl(schemaResponse));
 
         const result = new ContractDetailImpl();
-        result.setSchemaDetailInfo(this.id, this.provider, this.name, this.version, contractRequest, contractResponse);
+        result.setSchemaDetailInfo(this.id, this.provider, this.name, this.version,
+            this.getSchemaIndex(), contractRequest, contractResponse);
         return result;
     }
 }

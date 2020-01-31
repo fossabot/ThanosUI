@@ -72,6 +72,7 @@ export class ContractDetailComponent implements OnInit {
       this.contractDetail.schemaProvider = schemaKeyFromState.provider;
       this.contractDetail.schemaName = schemaKeyFromState.name;
       this.contractDetail.schemaVersion = schemaKeyFromState.version;
+      this.contractDetail.schemaIndex = schemaKeyFromState.getSchemaIndex();
       console.log(this.contractDetail);
     });
   }
@@ -100,11 +101,11 @@ export class ContractDetailComponent implements OnInit {
   private notifyMockServer() {
     this.mockServerService.notifyContractAddOrUpdate(this.contractDetail).subscribe(result => {
       this.snackBar.open('Contract saved and notified mock server', 'Noted', {
-        duration: 2000,
+        duration: 3000,
       });
     }, err => {
       this.snackBar.open('Contract saved and but fail to notify mock server', 'Noted', {
-        duration: 3000,
+        duration: 5000,
       });
     });
   }

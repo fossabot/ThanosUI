@@ -19,11 +19,12 @@ export class ContractDetailImpl {
     }
 
     setSchemaDetailInfo(schemaId: string, schemaProvider: string, schemaName: string, schemaVersion: string,
-                        req: ContractFieldImpl[], res: ContractFieldImpl[]) {
+                        schemaIndex: string, req: ContractFieldImpl[], res: ContractFieldImpl[]) {
         this.schemaId = schemaId;
         this.schemaProvider = schemaProvider;
         this.schemaName = schemaName;
         this.schemaVersion = schemaVersion;
+        this.schemaIndex = schemaIndex;
         this.request = req;
         this.response = res;
     }

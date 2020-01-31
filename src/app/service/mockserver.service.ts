@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { MockMappingDTO } from '../models/mockmapping/MockMappingDTO';
 import { ContractDetailImpl } from '../models/contract/ContractDetailImpl';
 import { SchemaDetailImpl } from '../models/schema/SchemaDetailImpl';
+import { ContractKeyImpl } from '../models/contract/ContractKeyImpl';
 
 @Injectable()
 export class MockServerService {
@@ -17,6 +18,10 @@ export class MockServerService {
 
     notifyContractAddOrUpdate(contractDetailImpl: ContractDetailImpl): Observable<any> {
         return this.apiService.post(environment.mockserver_url + '/apis/contracts', contractDetailImpl);
+    }
+
+    notifyContractRemove(contractKey: ContractKeyImpl): Observable<any> {
+        return this.apiService.post(environment.mockserver_url + '/apis/remove/contracts', contractKey);
     }
 
     notifySchemaAddOrUpdate(schemaDetailImpl: SchemaDetailImpl): Observable<any> {

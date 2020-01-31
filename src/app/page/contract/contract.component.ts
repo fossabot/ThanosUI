@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { Mode } from 'src/app/models/Mode';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MockServerService } from 'src/app/service/mockserver.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contract',
@@ -42,7 +44,8 @@ export class ContractComponent implements OnInit {
 
   customFilterPredicate: (data: ContractKeyImpl, filter: string) => boolean;
 
-  constructor(public contractService: ContractService, public router: Router, public dialog: MatDialog) {
+  constructor(public contractService: ContractService, public mockServerService: MockServerService,
+              public router: Router, public dialog: MatDialog, public snackBar: MatSnackBar) {
 
     try {
       if (router.getCurrentNavigation()) {
@@ -144,6 +147,7 @@ export class ContractComponent implements OnInit {
         this.contractService.deleteContract(element.id).subscribe(response => {
           const index = this.contractList.findIndex(schema => schema === element);
           this.contractList.splice(index, 1);
+          this.notifyMockServer(element);
           this.refreshList();
         }, error => {
           this.allertMessage = error.error;
@@ -168,6 +172,18 @@ export class ContractComponent implements OnInit {
       version: ''
     };
     this.applyFilter('');
+  }
+
+  private notifyMockServer(element: ContractKeyImpl) {
+    this.mockServerService.notifyContractRemove(element).subscribe(result => {
+      this.snackBar.open('Contract removed and notified mock server', 'Noted', {
+        duration: 3000,
+      });
+    }, err => {
+      this.snackBar.open('Contract removed and but fail to notify mock server', 'Noted', {
+        duration: 5000,
+      });
+    });
   }
 
 }

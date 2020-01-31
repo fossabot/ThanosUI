@@ -28,6 +28,9 @@ export class SchemaKeyImpl {
         } else {
             return false;
         }
+    }
 
+    getSchemaIndex(): string {
+        return this.provider + '-' + this.name + '-' + this.version;
     }
 }
