@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm
 import { MatDialog } from '@angular/material/dialog';
 import { MockServerService } from 'src/app/service/mockserver.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotifyDialogComponent } from 'src/app/component/notify-dialog/notify-dialog.component';
 
 @Component({
   selector: 'app-contract',
@@ -160,6 +161,18 @@ export class ContractComponent implements OnInit {
   }
   duplicateContract(element: ContractKeyImpl) {
     this.router.navigateByUrl('/detail/contract', { state: { mode: Mode.DUPLICATE, data: element } });
+  }
+
+  generateRequest(element: ContractKeyImpl) {
+    this.mockServerService.buildReq(element).subscribe(response => {
+      this.dialog.open(NotifyDialogComponent, {
+        data: { title: 'Notice', message: response }
+      });
+    }, error => {
+      this.snackBar.open('Fail to generate request: ' + error.error, 'Noted', {
+        duration: 5000,
+      });
+    });
   }
 
   resetFilter() {
